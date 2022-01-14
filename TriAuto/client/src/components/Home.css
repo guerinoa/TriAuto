@@ -1,0 +1,11 @@
+.home{
+    background-image:url("/src/img/hospitalbackground.png");
+    background-color:#010101;
+    background-size:cover;
+    background-position:50%;
+    background-repeat: no-repeat;
+    height:100vh;
+    display: flex;
+    
+
+}
