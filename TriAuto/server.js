@@ -1,11 +1,33 @@
-const express = require('express'); //Line 1
-const app = express(); //Line 2
-const port = process.env.PORT || 5000; //Line 3
+const express = require('express')
+const http = require("http");
+const app = express()
+const port = 4000
+const server = http.createServer(app);
 
-// This displays message that the server running and listening to specified port
-app.listen(port, () => console.log(`Listening on port ${port}`)); //Line 6
+// Allows cross origin requests
+const io = require("socket.io")(server, {
+    cors: {
+      origin: "*",
+      methods: ["GET", "POST"]
+    }
+  });
 
-// create a GET route
-app.get('/express_backend', (req, res) => { //Line 9
-  res.send({ express: 'YOUR EXPRESS BACKEND IS CONNECTED TO REACT' }); //Line 10
-}); //Line 11
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
+
+io.on('connection', (socket, res) => {
+    console.log('a user connected');
+    socket.on("submit", (arg) => {
+        console.log(arg);
+    });
+});
+
+// app.post('/', function (req, res) {
+//     res.send('Got a POST request')
+//   })
+
+server.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`)
+})
+

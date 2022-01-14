@@ -1,0 +1,13 @@
+#landingPage {
+    text-align: center;
+    margin-top: 5vh;
+}
+
+#languageChoice {
+    display: inline-block;
+    margin: auto;
+}
+
+#button {
+    margin: 10%;
+}
