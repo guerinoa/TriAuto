@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import './App.css';
 import Home from "./components/Home"
 import Patient from "./components/Patient"
+import Nurse from "./components/Nurse"
 import Role from "./components/Role";
+import Wait from "./components/Wait"
 import Navbar from './components/Navbar';
 import {HashRouter as Router, Switch, Route} from 'react-router-dom';
 import LandingPage from './components/LandingPage';
@@ -38,6 +40,8 @@ class App extends Component {
        <Route path='/' exact component={LandingPage}/>
        <Route path='/role' component={Role} />
        <Route path='/patient' component={Patient} />
+       <Route path='/nurse' component={Nurse} />
+       <Route path='/wait' component={Wait} />
      </Switch>
    </Router> 
     );

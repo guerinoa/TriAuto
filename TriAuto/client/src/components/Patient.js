@@ -6,9 +6,13 @@ import { Input } from '@mui/material';
 import { FormHelperText } from '@mui/material';
 import { useState, useEffect } from "react";
 import { io } from "socket.io-client";
+import './Patient.css';
+import { Link } from 'react-router-dom';
 
 let socket;
 const CONNECTION_PORT = 'localhost:4000'
+
+
 
 function UserForm() {
     const [firstName, setFirstName] = useState('')
@@ -20,27 +24,32 @@ function UserForm() {
 
     function handleSubmit() {
         socket.emit("submit", {'firstName': firstName, 'lastName': lastName})
-        alert('A name was submitted: ' + firstName + ' ' + lastName);
       }
+    
   
     return (
     <form sx={{ flexDirection: "row"}} id='childForm'>
-        <Grid container spacing={2}>
-        <Grid item xs={12}>
+        <Grid id="form" container spacing={2}>
+        <Grid id="field1" item xs={12}>
             <FormControl>
                 <InputLabel htmlFor="firstName">First Name</InputLabel>
                 <Input id="firstName" aria-describedby="my-helper-text" onChange={e => setFirstName(e.target.value)} />
-                <FormHelperText id="my-helper-text">We'll never share your email.</FormHelperText>
+                <FormHelperText id="my-helper-text">Helper text for now.</FormHelperText>
             </FormControl>
         </Grid>
-        <Grid item xs={12}>
+        <Grid id="field2" item xs={12}>
             <FormControl>
                     <InputLabel htmlFor="lastName">Last Name</InputLabel>
                     <Input id="lastName" onChange={e => setLastName(e.target.value)} />
             </FormControl>
         </Grid>
-        <Grid item xs={12}>
-            <Button onClick={() => handleSubmit()}>Submit</Button>
+
+        <Grid id="submitButton" item xs={12}>
+            <Link style={{ textDecoration: 'none' }} to={{
+                pathname: "/wait",
+            }}>
+                <Button onClick={() => handleSubmit()}>Submit</Button>
+            </Link>
         </Grid>
         </Grid>
     </form>
