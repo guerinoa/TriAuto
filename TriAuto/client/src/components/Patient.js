@@ -34,7 +34,7 @@ function UserForm() {
             <FormControl>
                 <InputLabel htmlFor="firstName">First Name</InputLabel>
                 <Input id="firstName" aria-describedby="my-helper-text" onChange={e => setFirstName(e.target.value)} />
-                <FormHelperText id="my-helper-text">Helper text for now.</FormHelperText>
+                <FormHelperText id="my-helper-text">Helper text.</FormHelperText>
             </FormControl>
         </Grid>
         <Grid id="field2" item xs={12}>
