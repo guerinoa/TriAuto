@@ -5,6 +5,7 @@ const app = express()
 const port = 4000
 const server = http.createServer(app);
 const listRoutes = require("./routes/patientList");
+const cors = require('cors')
 
 
 let count = 1;
@@ -26,10 +27,10 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
+app.use(cors());
 app.use(express.json());
 app.use("/patientList",listRoutes);
 
-app.listen(3001);
 
 io.on('connection', (socket, res) => {
     console.log('a user connected');
@@ -44,13 +45,16 @@ io.on('connection', (socket, res) => {
       arg["id"] = count++;
 
       // Make a post request
-      Axios.post('http://localhost:3001/patientList/create',{
-        items: arg
-        })
+      Axios.post('http://localhost:4000/patientList/create',{
+        items: arg}).then(response => console.log(response))
 
       // Send data to nurse clients
       socket.to('nurseRoom').emit('queue', arg);
     });
 });
+
+server.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`)
+})
 
 
