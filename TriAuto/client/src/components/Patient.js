@@ -23,7 +23,7 @@ function UserForm() {
     }, [CONNECTION_PORT])
 
     function handleSubmit() {
-        socket.emit("submit", {'firstName': firstName, 'lastName': lastName})
+        socket.emit("submit", {'firstname': firstName, 'lastname': lastName, 'age': 5})
       }
     
   
