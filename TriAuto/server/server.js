@@ -37,7 +37,11 @@ io.on('connection', (socket, res) => {
 
     socket.on('joinRoom', room => {
       socket.join(room);
-    }) 
+    })
+    
+    socket.on('message', (msg) => {
+      console.log("message: " + msg);
+    });
 
     socket.on("submit", (arg) => {
       // Generate a risk level
