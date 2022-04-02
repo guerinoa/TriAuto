@@ -1,0 +1,18 @@
+h1 {
+    text-align: center;
+    margin-top: 5vh;
+}
+
+#rolePage {
+    text-align: center;
+    margin-top: 5vh;
+}
+
+#roleChoice {
+    display: inline-block;
+    margin: auto;
+}
+
+#button {
+    margin: 10%;
+}

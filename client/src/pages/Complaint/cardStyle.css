@@ -1,0 +1,43 @@
+.cardClass {
+    display: flex;
+    flex-direction: column;
+    background-color: 'white';
+    align-items: center;
+}
+.Face, .Eyes, .Nose, .Ears, .Mouth\/Throat\/Neck, .Skin, .HeadAche, .Mental.Health\/Neurological{
+    display: flex;
+    opacity: 0.6;
+    background-size: contain;
+    color:black;
+    height: 100%;
+    font-weight: bold;
+    font-size: small;
+    font-family: cursive;
+    align-items: center;
+    justify-content: center;
+}
+.Face{
+    background-image: url("../../img/Cards/face.svg");
+}
+.Eyes{
+    background-image: url("../../img/Cards/eye.svg");
+}
+.Nose{
+    background-image: url("../../img/Cards/nose.svg");
+}
+.Ears{
+    background-image: url("../../img/Cards/ear.svg");
+}
+.Mouth\/Throat\/Neck{
+    background-image: url("../../img/Cards/throat.svg");
+}
+.Skin{
+    background-image: url("../../img/Cards/skin.svg");
+}
+.HeadAche{
+    background-image: url("../../img/Cards/headache.svg");
+}
+
+.Mental.Health\/Neurological{
+    background-image: url("../../img/Cards/brain.svg");
+}
