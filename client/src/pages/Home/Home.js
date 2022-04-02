@@ -6,8 +6,8 @@ function Home() {
     return (
         <div>
             <div className="home">
-                <video src = "/videos/hospital2.mp4" autoPlay loop muted /> 
-                <h1> WELCOME TO TRIAUTO</h1>
+              { /* <video controls preload="none" src = "/videos/hospital3.mp4" poster="/videos/Hospital.PNG" autoPlay loop muted /> */}
+                <h1>TRIAUTO</h1>
                 <p>The ultimate Triage experience</p>
             
             <div className = "hero-btns">

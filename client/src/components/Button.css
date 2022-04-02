@@ -1,5 +1,6 @@
 :root {
     --primary: #fff; 
+    --secondary: black;
 }
 
 .btn {
@@ -18,14 +19,14 @@
 }
 
 .btn--outline {
-    background-color: transparent;
-    color: #fff;
+    background-color: black;
+    color: white;
     padding: 8px 20px; 
-    border: 1px solid var(--primary); 
+    border: 1px solid var(--secondary); 
     transition: all 0.3s ease-out; 
 }
 .btn--outline:hover{
-    background-color: white;
+    background-color: rgb(253, 253, 253);
     color: black;
     font-weight: bold;
 }
