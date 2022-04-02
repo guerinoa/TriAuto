@@ -21,16 +21,15 @@ video {
 }
 .home >h1{
     color:rgb(172, 5, 5);
-    font-size:100px;
+    font-size:120px;
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    padding:20px;
+    padding:10px;
     text-shadow:4px 4px 8px #363434;
 }
 
 .home > p {
-     margin-top:9px;
      color:rgb(4, 4, 58);
-     font-size:36px;
+     font-size:28px;
      font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
      
 }
