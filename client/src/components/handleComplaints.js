@@ -20,28 +20,47 @@ function HandleComplaints() {
       }
     );
 
-    //Handlechange events for added and updated inputs respectively. 
+    //For events 
     const patientComplaintChange = (event) => {    
+          console.log(event.target.name)
+          console.log(event.target.value)
           setPatientComplaint({
               ...patientComplaint,
               [event.target.name]:event.target.value
           })
     }
-    
+
+    //for specific values
+    const specificComplaintChange= (name,value) => {
+          setPatientComplaint({
+            ...patientComplaint,
+            [name]:value
+          })
+    }
+    //forlists of values
+    const listComplaintChange= (list1,list2) => {
+      setPatientComplaint({
+        ...patientComplaint,
+        [list1[0]]:list2[0],
+        [list1[1]]:list2[1],
+        [list1[2]]:list2[2]
+      })
+}
+
+
+
     const complaintListChange = () => {
             setComplaintList([...complaintList,
                 patientComplaint
     ]); 
     }
 
-    const addItem = () => {
+    const addItem = (ohipNum) => {
       Axios.post('http://localhost:4000/complaintList/create',{
         patientComplaint: patientComplaint
         }).then(()=>
         {
-          setComplaintList([...complaintList,
-                        patientComplaint
-          ]); 
+          getPatientComplaint(ohipNum)
         } 
         );
     };
@@ -62,7 +81,7 @@ function HandleComplaints() {
     }
  
       
-    return {complaintList,getPatientComplaint,patientComplaint,patientComplaintChange,setPatientComplaint,addItem,complaintListChange,deleteItem}
+    return {complaintList,getPatientComplaint,patientComplaint,patientComplaintChange,specificComplaintChange,listComplaintChange,setPatientComplaint,addItem,complaintListChange,deleteItem}
 }
 
 export default HandleComplaints

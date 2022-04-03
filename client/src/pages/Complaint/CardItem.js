@@ -22,12 +22,13 @@ function CardItem(props) {
     const [cedisVal, setCedisVal] = useState(0) 
     const [ctasVal, setCtasVal]  = useState(0)
     const [subQNeeded, setSubQNeeded] = useState(false)
-    const [complaintEvent, setComplaintEvent] = useState("") 
-    const {setPatientComplaint, addItem} = HandleComplaints();
-    const [itemAdded, setItemAdded] = useState(0)
+    const {patientComplaint,patientComplaintChange,specificComplaintChange,listComplaintChange, setPatientComplaint, addItem} = HandleComplaints();
     const [isSubmit, setIsSubmit] = useState(false)
     const patientOhip = props.patientComplaint.OHIP; 
 
+    useEffect(() => { 
+        specificComplaintChange("OHIP",patientOhip)  
+      }, [])
 
     function buttonPress(BodyPart){
         if(BodyPart === 'Face') { setArea(Face) }
@@ -38,42 +39,30 @@ function CardItem(props) {
         else {
             setNextState(true)
             Object.entries(CedisCtasValues).map(([key,cvalue])=> {
-                key === BodyPart && setCedisVal(cvalue[0])
-                key === BodyPart && setCtasVal(cvalue[1])
+                key === BodyPart && listComplaintChange(["PatientComplaint","PatientCtasLevel","ComplaintEvent"],[cvalue[0],cvalue[1],BodyPart])
                 if(key === BodyPart && cvalue[1]===0) {setSubQNeeded(true)} 
-                key == BodyPart && setComplaintEvent(BodyPart)
+                key === BodyPart && setCtasVal(cvalue[1])
+                key === BodyPart && setCedisVal(cvalue[0])
             })
 
         }
     }
-    useEffect(() => {   
-        addItem(patientOhip) 
-        console.log("item added")
-        console.log(itemAdded)
-      }, [itemAdded])
-
     const handleChange = e => {
         setValue(e.target.value)
+        patientComplaintChange(e)
+
     }
     const handleComments = e => {
         setComments(e.target.value)
+        patientComplaintChange(e)
     }
     const onPainChange = (event,newvalue) =>{
         setPainValue(newvalue)
+        patientComplaintChange(event)
     }
-
+    
     function onSubmit() {
-        setItemAdded(itemAdded + 1)
-        setPatientComplaint({
-            ...props.patientComplaint,
-            VisitID: 0,
-            PatientComplaint: cedisVal,
-            PatientCtasLevel: ctasVal,
-            ComplaintEvent: complaintEvent,
-            PatientPainLevel: painVal,
-            PatientSymptomList: value,
-            PatientComments: comments,          
-        })    
+        addItem(patientOhip)
         setIsSubmit(true)
     }
     function PainAndSymptomsDisplay(){
@@ -81,7 +70,7 @@ function CardItem(props) {
             <div> 
                 <div style={{ flexDirection: "row", height:'300px'}}>
                     <h2 style ={{marginBottom:0}}> Please rate your pain level: </h2> 
-                        <Slider marks = {marks} min={1} max={10}  valueLabelDisplay = "auto" defaultValue = {0} onChange= {onPainChange}
+                        <Slider marks = {marks} min={1} max={10} name = "PatientPainLevel" valueLabelDisplay = "auto" defaultValue = {0} onChange= {onPainChange}
                                 sx ={{
                                     ":hover":{
                                     boxShadow:0,
@@ -93,7 +82,7 @@ function CardItem(props) {
                 <form sx={{ flexDirection: "row", height:'200px'}} >
         
                 <label > Please enter any other symptoms: </label> 
-                <TextField label="Symptoms" variant = "filled" color = "primary" value = {value} onChange = {handleChange} 
+                <TextField label="Symptoms" name ="PatientSymptomList" variant = "filled" color = "primary" value = {value} onChange = {handleChange} 
                     fullWidth
                     required />   
                
@@ -104,7 +93,7 @@ function CardItem(props) {
                     <TextField 
                         label="Extra Comments" 
                         variant = "filled" 
-                        Name = "PatientComments"
+                        name = "PatientComments"
                         color = "primary" 
                         value = {comments}
                         onChange  = {handleComments}
@@ -131,7 +120,7 @@ function CardItem(props) {
         <Button  onClick = {()=>buttonPress(items)}><Card style={{"width":"150px","height":"150px", "margin":"25px"}} backgroundImage background={"Plum"} hoverType={"zoom"}> <div className = {items}>  {items} </div> </Card>  </Button> 
         ) } </div>
                                             
-          </div>  : subQNeeded ? <SubQuestions cedisVal ={cedisVal} setCtasVal={setCtasVal} setSubQNeeded = {setSubQNeeded}/> : PainAndSymptomsDisplay() } 
+          </div>  : subQNeeded ? <SubQuestions cedisVal ={cedisVal} specificComplaintChange={specificComplaintChange} setSubQNeeded = {setSubQNeeded}/> : PainAndSymptomsDisplay() } 
             
           {isSubmit && 
             <div style={{display:'flex', alignItems:'center'}}>

@@ -4,14 +4,20 @@ import Button from '@mui/material/Button';
 function SubQuestions(props) {
     const FOREIGNBODY = 503
     const VISUALDISTURBANCE = 504 
+
+    function handleClick(ctas) {
+        props.specificComplaintChange("PatientCtasLevel",ctas)
+        props.setSubQNeeded(false)
+    }
+
     function OpthaSubQ() {
         return(
             
             <form sx={{ flexDirection: "row", height:'200px'}} >
             <label > Are you experiencing Vision Loss? </label> 
-            <Button onClick={() => {props.setCtasVal(1);props.setSubQNeeded(false)}}>Full</Button> 
-            <Button onClick={() =>  {props.setCtasVal(2);  props.setSubQNeeded(false) }}>Partial</Button> 
-            <Button onClick={()=> {props.setCtasVal(5);  props.setSubQNeeded(false) }}> None </Button> 
+            <Button onClick={() => handleClick(1)}>Full</Button> 
+            <Button onClick={() =>  handleClick(2)}>Partial</Button> 
+            <Button onClick={()=> handleClick(5)}> None </Button> 
             </form>  
         )
     }
