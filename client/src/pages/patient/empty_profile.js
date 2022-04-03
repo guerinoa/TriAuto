@@ -21,10 +21,8 @@ export const EmptyProfile = (props) => {
         <div className = "MainDiv" style= {{display: 'flex', justifyContent: 'center'}}> 
         <div className = "EmptyProfile " style = {{display:'flex', flex:2, flexDirection:'column', alignItems:'center'}}>
                 <div className = "welcome" style ={{display:'flex', marginBottom:'20px', alignItems:'center'}}> <h1>Welcome Patient </h1> </div>
-                <div className="OHIP">
-                 <h3>OHIP Number: {props.savedOhip} </h3>
-                </div>
-               <div className = "middlePart" style = {{display:'flex', margin:'20px'}}> 
+                <div className="OHIP"> <h3>OHIP Number: {props.savedOhip} </h3> </div>
+                <div className = "middlePart" style = {{display:'flex', margin:'20px'}}> 
                          <div className = "leftSide" style = {{display:'flex', flexDirection:'column', margin:'20px'}}>
                                    <div className = "nameInfo" style ={{display:'flex'}}>
                                         <div className="field">
@@ -42,9 +40,6 @@ export const EmptyProfile = (props) => {
                                         <input  type ="text" name ="PatientEmail" placeholder = "Email"  onChange = {event=>props.patientProfileChange(event)} /> 
                                    </div>
                                    </div> 
-                                   {/*For now keep as Address --> may need to change i.e. province, postal code */}
-                         
-                              
                                    <div className= "heightWeight" style ={{display:'flex'}}>
                                    <div className="field" >
                                         <input  type ="text" name ="PatientHeight" placeholder = "Height"  onChange = {event=>props.patientProfileChange(event)} />
@@ -59,7 +54,7 @@ export const EmptyProfile = (props) => {
                                    <select  name ="PatientSex" value = {value} onChange = {event=>dropDownChange(event)}> <option value ="F">F </option><option value ="M"> M</option> </select> 
                               </div>
                               <div className="PatientDOB" style = {{display:'flex'}}>
-                                   <input  type ="date" name ="patientDOB" placeholder = "Date of Birth"  onChange = {event=>props.patientProfileChange(event)} /> 
+                                   <input  type ="date"  name ="patientDOB" placeholder = "Date of Birth"  onChange = {event=>props.patientProfileChange(event)} /> 
                               </div>
                          </div>
                </div> 
@@ -69,7 +64,6 @@ export const EmptyProfile = (props) => {
                 <div className="field" >
                   <input type ="text" name ="PatientAllergies" placeholder = "Allergy"  onChange = {event=>props.patientProfileChange(event)} /> 
                 </div>
-                
                 <div className="comments" style = {{display:'flex' }}>
                      <input  type ="text" name ="PatientMedication" placeholder = "Medication" onChange = {event=>props.patientProfileChange(event)} /> 
                 </div>

@@ -1,0 +1,124 @@
+* {
+    box-sizing: border-box;
+  }
+  
+    Body {
+  
+    background: white
+  }
+  .MainDiv{
+    flex:1
+  }
+  .patientSection{
+      height:90vh;
+      display:flex;
+      flex-direction:row;
+      justify-content:center;
+  }
+  .patientProfile {
+      background:rgb(44, 4, 4);
+      width: 100%;
+    
+  }
+  .bottomButton{
+    background:rgb(44, 4, 4);
+    height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .infobox, .OHIP1, .commentInfo{
+    display:'flex';
+    width: 70%;
+    height: 40px;
+    border-radius: 4px;
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.45);
+    box-shadow: inset 0px 0px 10px 0px #ffffff;
+    margin:10px;
+  }
+
+  .NameInfo, .NumberEmail, .HeightWeight{
+      width:60%;
+  }
+  .welcome > h1 {
+      font-size: 50px;
+      color:white;
+      margin-top:20px;
+  }
+ .commentInfo{
+    height: 100px;
+  }
+
+
+    .OHIP1 >h3, .infobox >h3, .commentInfo>h3{
+    font-family: "Gotham SSm A", "Gotham SSm B", sans-serif;
+    text-align: center;
+    justify-content: center;
+    line-height: normal;
+    margin-top: 10px;
+
+    }
+    .infobox >h3, .commentInfo>h3{
+        width:100%;
+        font-size: 14px;
+        color:rgb(78, 78, 78);
+    }
+  .patientSex, .patientDOB {
+      justify-content: center;
+      background-color: #b1231f;
+      width:85%;
+  }
+
+.patientSex > h3 {
+    color:white;
+    font-weight:400;
+}
+.RightSide{
+    justify-content: space-around;
+    flex:1
+    
+}
+.MiddlePart{
+    width:100%;
+    justify-content: center;
+}
+.LeftSide{
+    width:100%;
+    flex:2;
+    align-items: center;
+
+}
+
+  .infobox:hover, .commentInfo:hover, .OHIP1:hover{
+    background-color: rgba(255, 255, 255, 0.45);
+    box-shadow: 0px 4px 20px 0px rgba(219, 6, 6, 0.05);
+  }
+  .patientDOB, .patientSex{
+      width:40%;
+      height:50px;
+      align-items: center;
+  }
+  .patientDOB >h3 {
+    color:white;
+    font-weight:500;
+    align-items: center;
+
+  }
+  .patientDOB span {
+      color:white;
+      font-weight:400;
+  }
+
+.rightPatient{
+    display:flex;
+    flex-direction:column;
+    flex:2;
+    justify-content:center
+}
+
+ 
+.infobox span, .commentInfo span{
+    color:black;
+
+}

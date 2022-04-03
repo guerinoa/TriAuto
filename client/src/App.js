@@ -8,6 +8,7 @@ import Role from "./pages/Role/Role";
 import Wait from "./pages/Wait/Wait";
 import Ohip from "./pages/OHIP/Ohip";
 import PatientSection from "./pages/OHIP/PatientSection";
+import EmptySection from "./pages/OHIP/EmptySection";
 import Navbar from './components/Navbar';
 import {HashRouter as Router, Switch, Route} from 'react-router-dom';
 import LandingPage from './pages/LandingPage/LandingPage';
@@ -46,6 +47,7 @@ class App extends Component {
        <Route path='/patient' component={Patient} />
        <Route path='/ohip' component={Ohip} />
        <Route path='/patientsection' component={PatientSection} />
+       <Route path='/emptysection' component={EmptySection} />
        <Route path='/nurse' component={Nurse} />
        <Route path='/wait' component={Wait} />
        <Route path='/complaint' component={Complaint} />

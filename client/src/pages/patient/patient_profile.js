@@ -1,56 +1,65 @@
 import React from 'react'
 import {useState, useEffect} from 'react' 
+import "./patient_profile.css";
+import Moment from 'react-moment'
 
-
-//One function for the updating inputs. 
 export const PatientProfile = (props) => { 
+     const moment= require('moment')
     return (
-        <div className = "patientProfile " style = {{display:'flex', padding:20, flexDirection:'column', border:'1px solid', alignItems:'center'}}>
-                <div className="OHIP" style = {{display:'flex', paddingRight:20 }}>
-                <div> <label>OHIP Number: </label> {props.patient.OHIP} </div> 
+     <div className = "MainDiv" style= {{display: 'flex', justifyContent: 'center'}}> 
+        <div className = "patientProfile " style = {{display:'flex', flex:2, flexDirection:'column', alignItems:'center'}}>
+                <div className = "welcome" style ={{display:'flex', marginBottom:'20px', alignItems:'center'}}> <h1>Welcome Back </h1> </div>
+                <div className="OHIP1"> <h3>OHIP Number: {props.patient.OHIP} </h3> </div>
+                <div className = "MiddlePart" style = {{display:'flex', margin:'20px'}}> 
+                         <div className = "LeftSide" style = {{display:'flex', flexDirection:'column', margin:'20px'}}>
+                                   <div className = "NameInfo" style ={{display:'flex'}}>
+                                        <div className="infobox">
+                                             <h3><span> First Name </span> {props.patient.FirstName} </h3>  
+                                        </div> 
+                                        <div className="infobox">
+                                             <h3><span> Last Name: </span>{props.patient.LastName} </h3>  
+                                        </div>
+                                   </div> 
+                                   <div className ="NumberEmail" style = {{display: 'flex'}}> 
+                                        <div className="infobox">
+                                             <h3><span> Mobile: </span>{props.patient.PatientPhoneNumber} </h3> 
+                                        </div>
+                                        <div className="infobox" >
+                                             <h3><span> Email: </span> {props.patient.PatientEmail} </h3> 
+                                        </div>
+                                   </div> 
+                                   <div className= "HeightWeight" style ={{display:'flex'}}>
+                                        <div className="infobox" >
+                                             <h3><span> Height: </span> {props.patient.PatientHeight} </h3>
+                                        </div>
+                                        <div className="infobox" >
+                                             <h3><span> Weight: </span> {props.patient.PatientWeight} </h3>
+                                        </div>
+                                   </div> 
+                         </div>
+                         <div className = "RightSide" style ={{display: 'flex', flexDirection: 'column'}}> 
+                              <div className="patientSex" style = {{display:'flex'}}>
+                                   <h3>Sex: {props.patient.PatientSex} </h3> 
+                              </div>
+                              <div className="patientDOB" style = {{display:'flex'}}>
+                                   <h3>Date of Birth: <br/> <span> {moment(props.patient.patientDOB).format('MMMM Do YYYY')} </span>  </h3> 
+                              </div>
+                         </div>
+               </div> 
+                <div className="infobox" >
+                    <h3> <span> Address: </span>{props.patient.PatientAddress} </h3> 
                 </div>
-                <div className="FirstName" style = {{display:'flex',paddingRight:20}}>
-                     <div> <label>First Name: </label> {props.patient.FirstName} </div> 
+                <div className="infobox" >
+                    <h3><span> Allergies: </span> {props.patient.PatientAllergies} </h3> 
                 </div>
-                <div className="LastName" style = {{display:'flex',paddingRight:20}}>
-                <div> <label>Last Name: </label> { props.patient.LastName } </div>   
+                <div className="commentInfo" style = {{display:'flex' }}>
+                    <h3><span> Medication: </span>  {props.patient.PatientMedication} </h3>  
                 </div>
-     
-                <div className="PatientSex" style = {{display:'flex',paddingRight:20}}>
-                     <div> <label>Sex: </label> {props.patient.PatientSex } </div>  
+                <div className="commentInfo" style = {{display:'flex' }}>
+                    <h3><span> Comments: </span> {props.patient.PatientExistingConditions} </h3>  
                 </div>
-                <div className="PatientDOB" style = {{display:'flex',paddingRight:20}}>
-                <div> <label>Date of Birth: </label> {props.patient.patientDOB } </div>   
-                </div>
-                
-                <div className="PatientPhoneNumber" style = {{display:'flex', paddingRight:20 }}>
-                <div> <label>Phone Number: </label> {props.patient.PatientPhoneNumber} </div> 
-                </div>
-                {/*For now keep as Address --> may need to change i.e. province, postal code */}
-                <div className="PatientAddress" style = {{display:'flex',paddingRight:20}}>
-                     <div> <label>Address: </label> {props.patient.PatientAddress } </div> 
-                </div>
-                <div className="PatientEmail" style = {{display:'flex',paddingRight:20}}>
-                <div> <label>Email: </label> {props.patient.PatientEmail } </div>   
-                </div>
-                <div className="PatientHeight" style = {{display:'flex', paddingRight:20 }}>
-                <div> <label>Height: </label> {props.patient.PatientHeight} </div>
-                </div>
-                <div className="PatientWeight" style = {{display:'flex',paddingRight:20}}>
-                     <div> <label>Weight: </label> {props.patient.PatientWeight } </div>  
-                </div>
-                <div className="PatientAllergies" style = {{display:'flex',paddingRight:20}}>
-                <div> <label>Allergies: </label> { props.patient.PatientAllergies } </div>  
-                </div>
-                
-                <div className="PatientMedication" style = {{display:'flex', paddingRight:20 }}>
-                <div> <label>Medication: </label> {props.patient.PatientMedication} </div> 
-                </div>
-                <div className="PatientExistingConditions" style = {{display:'flex',paddingRight:20}}>
-                     <div> <label>Existing Conditions: </label> {props.patient.PatientExistingConditions} </div>  
-                </div>
-        
         </div>
+     </div>
         )
 }
 

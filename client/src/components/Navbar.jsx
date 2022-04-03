@@ -55,8 +55,8 @@ function Navbar() {
               
                     
                     </ul>
-                    {button && <Button1 buttonStyle ='btn--outline'> Patient Sign In</Button1> }  
-                    {button && <Button1 buttonStyle ='btn--outline'> Nurse Sign In </Button1> }  
+                    {button && <Link to ='/ohip'> <Button1 buttonStyle ='btn--outline'> Patient OHIP</Button1> </Link> }  
+                    {button && <Link to ='/nurse'> <Button1 buttonStyle ='btn--outline'> Nurse Sign In </Button1> </Link>}  
                     {/* && returns what is after, children of button 
                     from before choooses the buttonstyle from whatever we input it in Button,jsx*/}
              </div>
