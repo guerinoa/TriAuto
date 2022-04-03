@@ -5,8 +5,12 @@ const mysqlConnection = require("../connection");
 // Allows to read database
 Router.get("/:ohip",(req,res)=>{
     const OHIP =  req.params.ohip
+    console.log("complaint section")
+    console.log(OHIP)
     mysqlConnection.query(`select * from  patient_complaint WHERE OHIP ='${OHIP}'`, (err, rows, fields)=>{
-        if (!err){ res.send(rows);}
+        if (!err){ res.send(rows);
+            console.log(rows)
+            ;}
         else { console.log(err); }
     })
 });

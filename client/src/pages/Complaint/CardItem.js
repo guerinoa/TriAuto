@@ -11,6 +11,7 @@ import AwesomeSlider from 'react-awesome-slider';
 import SubQuestions from './SubQuestions';
 import { textAlign } from '@mui/system';
 import './cardStyle.css';
+import {Redirect} from 'react-router';
 
 function CardItem(props) {
     const [nextState, setNextState] = useState(false)
@@ -22,8 +23,11 @@ function CardItem(props) {
     const [ctasVal, setCtasVal]  = useState(0)
     const [subQNeeded, setSubQNeeded] = useState(false)
     const [complaintEvent, setComplaintEvent] = useState("") 
-    const {patientComplaint,getPatientComplaint, setPatientComplaint, addItem} = HandleComplaints();
-    const [itemAdded, setItemAdded] = useState(false)
+    const {setPatientComplaint, addItem} = HandleComplaints();
+    const [itemAdded, setItemAdded] = useState(0)
+    const [isSubmit, setIsSubmit] = useState(false)
+    const patientOhip = props.patientComplaint.OHIP; 
+
 
     function buttonPress(BodyPart){
         if(BodyPart === 'Face') { setArea(Face) }
@@ -43,11 +47,13 @@ function CardItem(props) {
         }
     }
     useEffect(() => {   
-        if(itemAdded){ addItem() } 
-      }, [itemAdded, ])
+        addItem(patientOhip) 
+        console.log("item added")
+        console.log(itemAdded)
+      }, [itemAdded])
 
     const handleChange = e => {
-                setValue(e.target.value)
+        setValue(e.target.value)
     }
     const handleComments = e => {
         setComments(e.target.value)
@@ -57,7 +63,7 @@ function CardItem(props) {
     }
 
     function onSubmit() {
-        setItemAdded(true)
+        setItemAdded(itemAdded + 1)
         setPatientComplaint({
             ...props.patientComplaint,
             VisitID: 0,
@@ -67,10 +73,8 @@ function CardItem(props) {
             PatientPainLevel: painVal,
             PatientSymptomList: value,
             PatientComments: comments,          
-        })
-        props.setChangeMade(true)
-        getPatientComplaint()
-        document.getElementById('complaintTable').scrollIntoView()
+        })    
+        setIsSubmit(true)
     }
     function PainAndSymptomsDisplay(){
         return (
@@ -129,6 +133,15 @@ function CardItem(props) {
                                             
           </div>  : subQNeeded ? <SubQuestions cedisVal ={cedisVal} setCtasVal={setCtasVal} setSubQNeeded = {setSubQNeeded}/> : PainAndSymptomsDisplay() } 
             
+          {isSubmit && 
+            <div style={{display:'flex', alignItems:'center'}}>
+                    <Redirect to={{
+                    pathname: "/complaint",
+                    state: {
+                        pO:patientOhip                
+                    }
+                    }}/>
+            </div> }
           </div> 
     )
 }

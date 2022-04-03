@@ -54,38 +54,12 @@ function HandleComplaints() {
         });
     }
 
-    const deleteItem = (id)=> {
+    const deleteItem = (ohipNum,id)=> {
       Axios.delete(`http://localhost:4000/complaintList/delete/${id}`).then((response)=> {
-        setComplaintList(complaintList.filter(complaint=>complaint.ComplaintId!=id))
+        /*setComplaintList(complaintList.filter(complaint=>complaint.ComplaintId!=id))*/
+        getPatientComplaint(ohipNum)
               });
     }
-/*
-    const updateItem =(ohipNum)=> {
-      Axios.put('http://localhost:4000/patientList/update',{
-          patientProfile: patientProfile,
-          ohipNum: ohipNum
-            }).then((response)=> {
-                setPatientList(patientList.map((val)=>{
-                      return val.OHIP === ohipNum? {
-                         OHIP: patientProfile.OHIP, 
-                         FirstName: patientProfile.FirstName,
-                         LastName: patientProfile.LastName, 
-                         PatientSex: patientProfile.PatientSex,
-                         patientDOB: patientProfile.PatientDOB,
-                         PatientPhoneNumber: patientProfile.PatientPhoneNumber,
-                         PatientAddress: patientProfile.PatientAddress,
-                         PatientEmail: patientProfile.PatientEmail,
-                         PatientHeight: patientProfile.PatientHeight,
-                         PatientWeight: patientProfile.PatientWeight,
-                         PatientAllergies: patientProfile.PatientAllergies,
-                         PatientMedication: patientProfile.PatientMedication,
-                         PatientExistingConditions: patientProfile.PatientExistingConditions
-                        } : val      
-                      }))
-                  }
-               );
-      }
-      */
  
       
     return {complaintList,getPatientComplaint,patientComplaint,patientComplaintChange,setPatientComplaint,addItem,complaintListChange,deleteItem}

@@ -85,6 +85,8 @@ function HandleStates() {
     };
 
     const getPatientProfile = (ohip) => {
+      console.log("get complaint")
+      console.log(ohip)
         Axios.get(`http://localhost:4000/patientList/${ohip}`).then((response)=> {
            /* setPatientList(response.data); */ 
             setPatientUser(response.data)

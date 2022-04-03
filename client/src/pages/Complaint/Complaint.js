@@ -15,20 +15,21 @@ import { DataGrid } from '@mui/x-data-grid';
 import FormDialog from '../../components/FormDialog';
 import ImageMap from './imageMap'
 import AddComplaint from './AddComplaint';
+import {Redirect} from 'react-router';
 
 function Complaint() {
     const location = useLocation()
     const cP = location.state.pO
     const {complaintList,getPatientComplaint, patientComplaint,setPatientComplaint, deleteItem} = HandleComplaints();
     const [isPressed,setIsPressed] = useState(false)
-    const currentPatientComplaint =  complaintList.filter(complaint => complaint.OHIP === cP)
     const [selectedIDs, setSelectedIds] = useState(new Set())
     const [changeMade, setChangeMade] = useState(false)
+    const [complaintLength, setComplaintLength] = useState(0)
     
     useEffect(() => {
         getPatientComplaint(cP);
       }, [])
-
+   
     useEffect(() => {
         if(changeMade) {
             getPatientComplaint(cP);
@@ -41,14 +42,12 @@ function Complaint() {
         setIsPressed(true)
         setPatientComplaint ({
             OHIP: cP,           
-        })
-        document.getElementById('mapImage').scrollIntoView()
+        })  
     }
 
     function deleteComplaint() {
-       selectedIDs.map(idToDelete => complaintList.map(complaints => complaints.ComplaintID === idToDelete && deleteItem(idToDelete)))
+       selectedIDs.map(idToDelete => complaintList.map(complaints => complaints.ComplaintID === idToDelete && deleteItem(complaints.OHIP,idToDelete)))
        selectedIDs.map(idToDelete => complaintList.filter(complaints => complaints.ComplaintID != idToDelete))
-       getPatientComplaint();
        setChangeMade(true)
     }
 
@@ -105,7 +104,7 @@ function Complaint() {
 
         <DataGrid
             getRowId={row => row.ComplaintID}
-            rows={currentPatientComplaint}
+            rows={complaintList}
             columns={columns}
             pageSize={20}
             rowsPerPageOptions={[5]}
@@ -119,15 +118,22 @@ function Complaint() {
         <Button style={{marginRight: 20}} variant = "contained" color = "primary" onClick = {()=>deleteComplaint()}> Delete</Button>
 
 
-        <Button variant = "contained" color = "secondary" onClick = {()=>press()}> Add Complaint </Button>
+        {complaintList.length < 3 ? <Button variant = "contained" color = "secondary" onClick = {()=>press()}> Add Complaint </Button> : <Button variant = "contained" disabled> Add Complaint </Button> } 
    
                 
-        <div id = "mapImage"  style = {{display:'flex', height: '90vh',flexDirection:'row', justifyContent:'center',backgroundColor :'White'}}>
+       
             {isPressed && 
+            <div id = "mapImage"  style = {{display:'flex', height: '90vh',flexDirection:'row', justifyContent:'center',backgroundColor :'White'}}>
             <div style={{display:'flex', alignItems:'center'}}>
-            <ImageMap patientComplaint = {patientComplaint} setChangeMade = {setChangeMade} /> 
-            </div> }
+                    <Redirect to={{
+                    pathname: "/imagemap",
+                    state: {
+                            patientComplaint:patientComplaint,              
+                    }
+                    }}/>
             </div> 
+            </div> }
+
         </> 
         
     )

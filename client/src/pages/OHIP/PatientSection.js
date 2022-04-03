@@ -63,8 +63,7 @@ function PatientSection() {
         {isDone &&  <Redirect to={{
             pathname: "/complaint",
             state: {
-                    patientOhip:patientOhip,
-                    isUpdate: isUpdate                 
+                    pO:patientOhip             
             }
             }}/>}
     </div> 
