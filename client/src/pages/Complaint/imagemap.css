@@ -1,0 +1,11 @@
+.image{
+    position: absolute;
+    margin:auto;
+    right:50%;
+    bottom:50%;
+    transform:translate(50%,50%);
+}
+
+.img-mapper-img{
+    position:relative;
+}

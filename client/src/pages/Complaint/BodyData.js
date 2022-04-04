@@ -41,7 +41,7 @@ export const Chest = [
      'Red Eye': [506,4],
      'Photophobia': [507,4],
      'Diplopia': [508,4],
-     'Periororbital Swelling': [509,5],
+     'Periorbital Swelling': [509,5],
      'Eye Trauma': [510,4],
      'Re-Check Eye': [511,5]
 

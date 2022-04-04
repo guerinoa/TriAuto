@@ -12,6 +12,7 @@
 
   .emptySection{
     height:90vh;
+    flex-direction: 'row'
   }
   .EmptyProfile {
       
@@ -21,6 +22,11 @@
       height: 85vh;
       
 
+  }
+  .emptyprof{
+    display:flex;
+    flex:1;
+    justify-content:'center';
   }
   .field, .OHIP{
     display:'flex';
@@ -159,4 +165,79 @@
     flex-direction:column;
     flex:2;
     justify-content:center
+}
+
+.leftSide{
+  display:flex;
+  flex-direction:column;
+  margin:20px;
+}
+
+@media screen and (max-width:960px)  {
+  .emptySection {
+
+    flex-direction: row;
+    height:95vh;
+
+
+  }
+}
+
+
+@media screen and (max-width:790px)  {
+  .emptySection {
+
+    height:100vh;
+  }
+
+  .emptyprof{
+    display:none;
+    height: 100vh;
+  }
+  .middlePart{
+    flex-direction: column;
+    width:100%;
+    
+  }
+  .EmptyProfile {
+    height: 100vh;
+  
+}
+.RightPatient{
+  height:100vh;
+}
+
+.welcome >h1 {
+  font-size: 40px;
+  color:white;
+}
+
+.nameInfo, .numberEmail, .heightWeight{
+  flex-direction: column;
+  width:100%;
+  align-items: center;
+}
+
+.field, .OHIP{
+  height:30px;
+}
+.field input{
+
+  height: 30px;
+  padding: 0px 0px;
+  font-size: 12px;
+  font-weight: 400;
+  text-align: center;
+}
+.comments input {
+  height: 40px;
+  padding: 0px 0px;
+  font-size: 12px;
+  font-weight: 400;
+  text-align: center;
+}
+.PatientDOB{
+  justify-content: center;
+}
+
 }

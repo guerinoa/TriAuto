@@ -24,8 +24,8 @@ function EmptySection() {
         setUpdated(true)
     }
     return (
-        <div className = "emptySection" style = {{display:'flex', flexDirection:'row', justifyContent:'center'}}>
-        <div className = "emptyprof" style = {{display:'flex', flex:1, justifyContent:'center'}}>
+        <div className = "emptySection" style = {{display:'flex', justifyContent:'center'}}>
+        <div className = "emptyprof" >
        
         </div> 
         <div className = "RightPatient" >

@@ -23,7 +23,7 @@ export const EmptyProfile = (props) => {
                 <div className = "welcome" style ={{display:'flex', marginBottom:'20px', alignItems:'center'}}> <h1>Welcome Patient </h1> </div>
                 <div className="OHIP"> <h3>OHIP Number: {props.savedOhip} </h3> </div>
                 <div className = "middlePart" style = {{display:'flex', margin:'20px'}}> 
-                         <div className = "leftSide" style = {{display:'flex', flexDirection:'column', margin:'20px'}}>
+                         <div className = "leftSide">
                                    <div className = "nameInfo" style ={{display:'flex'}}>
                                         <div className="field">
                                              <input  type ="text" name ="FirstName" placeholder = "First Name"  onChange = {event=>props.patientProfileChange(event)} /> 

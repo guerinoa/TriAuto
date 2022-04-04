@@ -24,7 +24,6 @@ function Complaint() {
     const [isPressed,setIsPressed] = useState(false)
     const [selectedIDs, setSelectedIds] = useState(new Set())
     const [changeMade, setChangeMade] = useState(false)
-    const [complaintLength, setComplaintLength] = useState(0)
     
     useEffect(() => {
         getPatientComplaint(cP);
@@ -128,7 +127,8 @@ function Complaint() {
                     <Redirect to={{
                     pathname: "/imagemap",
                     state: {
-                            patientComplaint:patientComplaint,              
+                            patientComplaint:patientComplaint,          
+                            fillcolor: '#00ff194c'    
                     }
                     }}/>
             </div> 

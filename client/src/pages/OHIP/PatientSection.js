@@ -29,7 +29,7 @@ function PatientSection() {
     }
     return (
         <div className ="patientSection" >
-         <div  className={`${isFemale? "femaleDiv": "maleDiv" }`} style = {{display:'flex', flex:1, justifyContent:'center'}}>
+         <div  className="emptyprof" >
        
          </div> 
          <div className = "rightPatient" >

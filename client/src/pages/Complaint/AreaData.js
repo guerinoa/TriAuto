@@ -4,7 +4,6 @@ export const MAP  = [
       title: "Head",
       shape: "poly",
       name: "1",
-      fillColor: "#ff000026",
       strokeColor: "black",
       coords: [
         198,
@@ -64,7 +63,6 @@ export const MAP  = [
       title: "Neck",
       shape: "poly",
       name: "2",
-      fillColor: "#eab54d4d",
       strokeColor: "black",
       coords: [
         198,
@@ -92,7 +90,7 @@ export const MAP  = [
         [
           184,
           91
-        ]
+        ],
         [
           183,
           100
@@ -100,7 +98,7 @@ export const MAP  = [
         [
           178,
           111
-        ]
+        ],
         [
           197,
           115
@@ -123,8 +121,7 @@ export const MAP  = [
         id: "1db62daa-22a4-4b02-b5c0-fffdcf77c66e",
         title: "Chest",
         shape: "poly",
-        name: "2",
-        fillColor: "#eab54d4d",
+        name: "3",
         strokeColor: "black",
         coords: [
           173,
@@ -190,7 +187,6 @@ export const MAP  = [
       title: "Abdominal",
       shape: "poly",
       name: "4",
-      fillColor: "red",
       strokeColor: "black",
       coords: [
         162,
@@ -250,8 +246,7 @@ export const MAP  = [
         id: "a87203cb-3916-48ea-856f-2bacab8b7ede",
         title: "HipGroin",
         shape: "poly",
-        name: "4",
-        fillColor: "red",
+        name: "5",
         strokeColor: "black",
         coords: [
           161,
@@ -317,8 +312,7 @@ export const MAP  = [
         id: "a87203cb-3916-48ea-856f-2bacab8b7edae",
         title: "LegFoot",
         shape: "poly",
-        name: "4",
-        fillColor: "red",
+        name: "6",
         strokeColor: "black",
         coords: [
           149,

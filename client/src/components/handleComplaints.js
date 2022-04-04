@@ -55,14 +55,10 @@ function HandleComplaints() {
     ]); 
     }
 
-    const addItem = (ohipNum) => {
+    const addItem = () => {
       Axios.post('http://localhost:4000/complaintList/create',{
         patientComplaint: patientComplaint
-        }).then(()=>
-        {
-          getPatientComplaint(ohipNum)
-        } 
-        );
+        });
     };
 
     const getPatientComplaint = (ohip) => {

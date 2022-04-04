@@ -36,10 +36,11 @@
     background-color: rgba(255, 255, 255, 0.45);
     box-shadow: inset 0px 0px 10px 0px #ffffff;
     margin:10px;
+
   }
 
   .NameInfo, .NumberEmail, .HeightWeight{
-      width:60%;
+      width:80%;
   }
   .welcome > h1 {
       font-size: 50px;
@@ -54,15 +55,16 @@
     .OHIP1 >h3, .infobox >h3, .commentInfo>h3{
     font-family: "Gotham SSm A", "Gotham SSm B", sans-serif;
     text-align: center;
-    justify-content: center;
+
     line-height: normal;
-    margin-top: 10px;
+    
+    
 
     }
     .infobox >h3, .commentInfo>h3{
         width:100%;
-        font-size: 14px;
-        color:rgb(78, 78, 78);
+        font-size: 13px;
+        color:rgb(61, 55, 55);
     }
   .patientSex, .patientDOB {
       justify-content: center;
@@ -82,6 +84,8 @@
 .MiddlePart{
     width:100%;
     justify-content: center;
+    display:flex;
+    margin:20px
 }
 .LeftSide{
     width:100%;
@@ -95,7 +99,7 @@
     box-shadow: 0px 4px 20px 0px rgba(219, 6, 6, 0.05);
   }
   .patientDOB, .patientSex{
-      width:40%;
+      width:60%;
       height:50px;
       align-items: center;
   }
@@ -103,6 +107,7 @@
     color:white;
     font-weight:500;
     align-items: center;
+    font-size: 14px;
 
   }
   .patientDOB span {
@@ -121,4 +126,45 @@
 .infobox span, .commentInfo span{
     color:black;
 
+}
+
+
+@media screen and (max-width:960px)  {
+  .NameInfo, .NumberEmail, .HeightWeight{
+    width:100%;
+    align-items: center;
+  }
+  .patientDOB > h3 {
+    font-size: 12px;
+}
+.patientDOB,.patientSex{
+  width:60%;
+}
+.OHIP1>H3,.infobox >h3, .commentInfo>h3{
+
+  font-size: 12px;
+
+}
+  
+}
+
+@media screen and (max-width:790px)  {
+ 
+  .MiddlePart, .NameInfo, .HeightWeight, .NumberEmail{
+    flex-direction: column;
+    align-items: center;
+  }
+  .MiddlePart{
+    margin-top: 0px;
+  }
+  .patientDOB,.patientSex{
+    margin:10px;
+  }
+  .RightSide{
+    align-items: center;
+    width:60%
+  }
+  .patientSection{
+    height:100%;
+  }
 }

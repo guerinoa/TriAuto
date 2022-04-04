@@ -62,7 +62,7 @@ function CardItem(props) {
     }
     
     function onSubmit() {
-        addItem(patientOhip)
+        addItem()
         setIsSubmit(true)
     }
     function PainAndSymptomsDisplay(){
@@ -113,11 +113,11 @@ function CardItem(props) {
           <div className = "cardClass" > 
            <div style = {{display:'flex', flexDirection:'row'}}> 
           {area.filter((item,index)=>index<5).map((items,index) =>  
-                                       <Button  onClick = {()=>buttonPress(items)}><Card style={{"width":"150px","height":"150px", "margin":"25px"}} background={"Plum"} hoverType={"zoom"} > <div className = {items} > {items} </div> </Card>  </Button> 
+                                       <Button  onClick = {()=>buttonPress(items)}><Card style={{"width":"145px","height":"145px", "margin":"25px"}} background={"Plum"} hoverType={"zoom"} > <div className = {items} > {items} </div> </Card>  </Button> 
                                      ) } </div> 
          <div style = {{display:'flex', flexDirection:'row'}}> 
         {area.filter((item,index)=>index>4).map((items,index) =>  
-        <Button  onClick = {()=>buttonPress(items)}><Card style={{"width":"150px","height":"150px", "margin":"25px"}} backgroundImage background={"Plum"} hoverType={"zoom"}> <div className = {items}>  {items} </div> </Card>  </Button> 
+        <Button  onClick = {()=>buttonPress(items)}><Card style={{"width":"145px","height":"145px", "margin":"25px"}} background={"Plum"} hoverType={"zoom"}> <div className = {items}>  {items} </div> </Card>  </Button> 
         ) } </div>
                                             
           </div>  : subQNeeded ? <SubQuestions cedisVal ={cedisVal} specificComplaintChange={specificComplaintChange} setSubQNeeded = {setSubQNeeded}/> : PainAndSymptomsDisplay() } 

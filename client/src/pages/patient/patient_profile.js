@@ -10,7 +10,7 @@ export const PatientProfile = (props) => {
         <div className = "patientProfile " style = {{display:'flex', flex:2, flexDirection:'column', alignItems:'center'}}>
                 <div className = "welcome" style ={{display:'flex', marginBottom:'20px', alignItems:'center'}}> <h1>Welcome Back </h1> </div>
                 <div className="OHIP1"> <h3>OHIP Number: {props.patient.OHIP} </h3> </div>
-                <div className = "MiddlePart" style = {{display:'flex', margin:'20px'}}> 
+                <div className = "MiddlePart"> 
                          <div className = "LeftSide" style = {{display:'flex', flexDirection:'column', margin:'20px'}}>
                                    <div className = "NameInfo" style ={{display:'flex'}}>
                                         <div className="infobox">
