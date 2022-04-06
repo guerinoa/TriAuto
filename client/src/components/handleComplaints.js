@@ -56,13 +56,13 @@ function HandleComplaints() {
     }
 
     const addItem = () => {
-      Axios.post('http://localhost:4000/complaintList/create',{
+      Axios.post('https://triautomanager.herokuapp.com/complaintList/create',{
         patientComplaint: patientComplaint
         });
     };
 
     const getPatientComplaint = (ohip) => {
-        Axios.get(`http://localhost:4000/complaintList/${ohip}`).then((response)=> {
+        Axios.get(`https://triautomanager.herokuapp.com/complaintList/${ohip}`).then((response)=> {
 
             setComplaintList(response.data); 
             console.log(complaintList)
@@ -70,7 +70,7 @@ function HandleComplaints() {
     }
 
     const deleteItem = (ohipNum,id)=> {
-      Axios.delete(`http://localhost:4000/complaintList/delete/${id}`).then((response)=> {
+      Axios.delete(`https://triautomanager.herokuapp.com/complaintList/delete/${id}`).then((response)=> {
         /*setComplaintList(complaintList.filter(complaint=>complaint.ComplaintId!=id))*/
         getPatientComplaint(ohipNum)
               });
