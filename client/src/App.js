@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './App.css';
 import Home from "./pages/Home/Home"
 import Patient from "./pages/patient/Patient"
-import Nurse from "./pages/Nurse/Nurse"
 import Complaint from "./pages/Complaint/Complaint"
 import Role from "./pages/Role/Role";
 import Wait from "./pages/Wait/Wait";
@@ -13,6 +12,9 @@ import Navbar from './components/Navbar';
 import {HashRouter as Router, Switch, Route} from 'react-router-dom';
 import LandingPage from './pages/LandingPage/LandingPage';
 import ImageMap from './pages/Complaint/imageMap';
+import Login from "./pages/Nurse/Login";
+import Landing from "./pages/Nurse/Landing";
+import Details from "./pages/Nurse/Details";
 
 
 class App extends Component {
@@ -48,10 +50,14 @@ class App extends Component {
        <Route path='/ohip' component={Ohip} />
        <Route path='/patientsection' component={PatientSection} />
        <Route path='/emptysection' component={EmptySection} />
-       <Route path='/nurse' component={Nurse} />
        <Route path='/wait' component={Wait} />
        <Route path='/complaint' component={Complaint} />
        <Route path='/imagemap' component={ImageMap} />
+
+       <Route path='/nurselogin' component={Login}/>
+       <Route path='/nurselanding' component={Landing}/>
+       <Route path='/details' component={Details}/>
+
      </Switch>
    </Router> 
     );
