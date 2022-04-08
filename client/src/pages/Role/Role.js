@@ -10,7 +10,7 @@ import nurseImg from './Nurse.jpg'
 function Role() {
     const location = useLocation();
     // Page defaults to english
-    const [language, setLanguage] = useState("french")
+    const [language, setLanguage] = useState("english")
 
     useEffect(() => {
         if (location.state) {
@@ -23,7 +23,7 @@ function Role() {
             {language === "english" && 
             <div className = 'cards'>
                     <div className = "patient">  <CardItem src = {patientImg} text = "Patient"  path='/ohip'/> </div>
-                    <div className = "nurse"> <CardItem src ={nurseImg} text = "Nurse"  path='/nurse'/>  </div> 
+                    <div className = "nurse"> <CardItem src ={nurseImg} text = "Nurse"  path='/nurselogin'/>  </div> 
                     
             </div>
             }
@@ -40,7 +40,7 @@ function Role() {
                     </Button>
                 </Link>
                 <Link style={{ textDecoration: 'none' }} to={{
-                    pathname: "/nurse",
+                    pathname: "/nurselogin",
                 }}>
                     <Button id="button" value="nurse" variant="outlined">
                         Infirmier
