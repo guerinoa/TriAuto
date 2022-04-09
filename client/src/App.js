@@ -15,26 +15,11 @@ import LandingPage from './pages/LandingPage/LandingPage';
 import ImageMap from './pages/Complaint/imageMap';
 import BeginCollection from "./pages/VitalSignCollection/BeginCollection";
 import CurrentPatient from "./pages/patient/CurrentPatient"
+import Login from "./pages/Nurse/Login";
+import Landing from "./pages/Nurse/Landing";
+import Details from "./pages/Nurse/Details";
+
 class App extends Component {
-// state = {
-//     data: null
-//   };
-
-//   componentDidMount() {
-//     this.callBackendAPI()
-//       .then(res => this.setState({ data: res.express }))
-//       .catch(err => console.log(err));
-//   }
-//     // fetching the GET route from the Express server which matches the GET route from server.js
-//   callBackendAPI = async () => {
-//     const response = await fetch('/express_backend');
-//     const body = await response.json();
-
-//     if (response.status !== 200) {
-//       throw Error(body.message) 
-//     }
-//     return body;
-//   };
 
   render() {
     return (
@@ -54,6 +39,12 @@ class App extends Component {
        <Route path='/imagemap' component={ImageMap} />
        <Route path='/begincollection' component={BeginCollection} />
       <Route path='/currentpatient' component={CurrentPatient} /> 
+
+        
+       <Route path='/nurselogin' component={Login}/>
+       <Route path='/nurselanding' component={Landing}/>
+       <Route path='/details' component={Details}/>
+
      </Switch>
    </Router> 
     );
