@@ -70,7 +70,7 @@ function HandleStates() {
 
     
     const addItem = (patientOhip) => {
-      Axios.post('https://triautomanager.herokuapp.com/patientList/create',{
+      Axios.post('http://localhost:8080/patientList/create',{
         patientProfile: patientProfile
         }).then(()=>
         {
@@ -87,7 +87,7 @@ function HandleStates() {
     const getPatientProfile = (ohip) => {
       console.log("get complaint")
       console.log(ohip)
-        Axios.get(`https://triautomanager.herokuapp.com/patientList/${ohip}`).then((response)=> {
+        Axios.get(`http://localhost:8080/patientList/${ohip}`).then((response)=> {
            /* setPatientList(response.data); */ 
             setPatientUser(response.data)
             console.log(response.data)
@@ -103,7 +103,7 @@ function HandleStates() {
     }
 */
     const updateItem =(ohipNum)=> {
-      Axios.put('https://triautomanager.herokuapp.com/patientList/update',{
+      Axios.put('http://localhost:8080/patientList/update',{
           patientProfile: patientProfile,
           ohipNum: ohipNum
             }).then((response)=> {

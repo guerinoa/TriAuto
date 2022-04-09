@@ -16,6 +16,8 @@ import FormDialog from '../../components/FormDialog';
 import ImageMap from './imageMap'
 import AddComplaint from './AddComplaint';
 import {Redirect} from 'react-router';
+import './complaint.css';
+import axios from 'axios';
 
 function Complaint() {
     const location = useLocation()
@@ -24,6 +26,7 @@ function Complaint() {
     const [isPressed,setIsPressed] = useState(false)
     const [selectedIDs, setSelectedIds] = useState(new Set())
     const [changeMade, setChangeMade] = useState(false)
+    const [loading, setLoading] = useState(false)
     
     useEffect(() => {
         getPatientComplaint(cP);
@@ -48,6 +51,19 @@ function Complaint() {
        selectedIDs.map(idToDelete => complaintList.map(complaints => complaints.ComplaintID === idToDelete && deleteItem(complaints.OHIP,idToDelete)))
        selectedIDs.map(idToDelete => complaintList.filter(complaints => complaints.ComplaintID != idToDelete))
        setChangeMade(true)
+    }
+
+    // Send collection signal to backend along with the visit id
+    function beginCollection() {
+
+        // Get visit id of most recent complain
+        console.log(complaintList.slice(-1)[0].VisitID)
+        axios.post('http://localhost:8080/vitalsList/collection', {visitID: complaintList.slice(-1)[0].VisitID}).then(function (response) {
+            console.log(response);
+        })
+
+        setLoading(true)
+
     }
 
     const columns = [
@@ -99,10 +115,16 @@ function Complaint() {
     ]  
     return (
        <> 
-       <div id = 'complaintTable' style={{ height: 830, width: '100%' }}>
+       {loading && (
+            <Redirect to={{
+                pathname: "/loading"
+                }}/>
+            )}
+       <div id = 'complaintTable' style={{ width: '100%' }}>
 
         <DataGrid
             getRowId={row => row.ComplaintID}
+            autoHeight
             rows={complaintList}
             columns={columns}
             pageSize={20}
@@ -113,6 +135,11 @@ function Complaint() {
                 setSelectedIds(ids);        
             }}
         />
+        </div>
+        <div id="wrapper">
+            <Button variant="outlined" onClick={()=>beginCollection()}>
+                Begin Data Collection
+            </Button>
         </div>
         <Button style={{marginRight: 20}} variant = "contained" color = "primary" onClick = {()=>deleteComplaint()}> Delete</Button>
 

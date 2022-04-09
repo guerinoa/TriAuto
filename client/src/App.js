@@ -15,6 +15,8 @@ import ImageMap from './pages/Complaint/imageMap';
 import Login from "./pages/Nurse/Login";
 import Landing from "./pages/Nurse/Landing";
 import Details from "./pages/Nurse/Details";
+import Loading from "./pages/Loading/Loading";
+import Collection from "./pages/Collection/Collection";
 
 
 class App extends Component {
@@ -57,6 +59,10 @@ class App extends Component {
        <Route path='/nurselogin' component={Login}/>
        <Route path='/nurselanding' component={Landing}/>
        <Route path='/details' component={Details}/>
+
+       <Route path='/loading' component={Loading}/>
+
+       <Route path='/collection' component={Collection}/>
 
      </Switch>
    </Router> 

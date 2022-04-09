@@ -1,0 +1,10 @@
+h2, h3 {
+    text-align: center;
+    padding: 2vh;
+}
+
+
+#wrapper {
+    display: block;
+    text-align: center;
+}

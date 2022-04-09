@@ -17,7 +17,7 @@ function Landing() {
 
     useEffect(() => {
         // GET request using axios inside useEffect React hook
-        axios.get('https://triautomanager.herokuapp.com/nurseList/visitation')
+        axios.get('http://localhost:8080/nurseList/visitation')
             .then(response => {
                 var people = [];
                 var open = [1, 2, 3, 4, 5];

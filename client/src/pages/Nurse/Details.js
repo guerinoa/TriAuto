@@ -18,7 +18,7 @@ const Details = () => {
 
         var ohip = location.state.ohip
         // GET request using axios inside useEffect React hook
-        axios.get('https://triautomanager.herokuapp.com/nurseList/details/' + ohip )
+        axios.get('http://localhost:8080/nurseList/details/' + ohip )
             .then(response => {
                 setDetails(response.data);
             })
@@ -29,7 +29,7 @@ const Details = () => {
     }
 
     const approve = () => {
-        axios.post('https://triautomanager.herokuapp.com/nurseList/approval', {risk: riskLevel, ohip: details[0].ohip}).then(function (response) {
+        axios.post('http://localhost:8080/nurseList/approval', {risk: riskLevel, ohip: details[0].ohip}).then(function (response) {
             console.log(response);
         })
     }
