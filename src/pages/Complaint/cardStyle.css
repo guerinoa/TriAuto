@@ -1,0 +1,106 @@
+.cardClass {
+    display: flex;
+    flex-direction: column;
+    background-color: 'white';
+    align-items: center;
+}
+.Face, .Eyes, .Nose, .Ears, .Mouth\/Throat\/Neck, .Skin, .HeadAche, .Mental.Health\/Neurological,.Chemical.Exposure,.Foreign.Body,.Visual.Disturbance,.Eye.Pain,.Red.Eye,.Photophobia{
+    display: flex;
+  
+    background-size: contain;
+    color:black;
+    height: 100%;
+    font-weight: bold;
+    font-size: small;
+    font-family: cursive;
+    align-items: center;
+    justify-content: center;
+    background-repeat: no-repeat;
+    
+}
+
+.Diplopia, .Periorbital.Swelling, .Eye.Trauma,.Re-Check.Eye{
+    display: flex;
+    background-size: contain;
+    color:black;
+    height: 100%;
+    font-weight: bold;
+    font-size: small;
+    font-family: cursive;
+    align-items: center;
+    justify-content: center;
+    background-repeat: no-repeat;
+
+}
+.Face{
+    background-image: url("../../img/Cards/face.svg");
+}
+.Eyes{
+    background-image: url("../../img/Cards/eye.svg");
+}
+.Nose{
+    background-image: url("../../img/Cards/nose.svg");
+}
+.Ears{
+    background-image: url("../../img/Cards/ear.svg");
+}
+.Mouth\/Throat\/Neck{
+    background-image: url("../../img/Cards/throat.svg");
+}
+.Skin{
+    background-image: url("../../img/Cards/skin.svg");
+}
+.HeadAche{
+    background-image: url("../../img/Cards/headache.svg");
+}
+
+.Mental.Health\/Neurological{
+    background-image: url("../../img/Cards/brain.svg");
+}
+
+.Chemical.Exposure{
+    background-image: url("../../img/Cards/chemical.svg");
+}
+
+.Foreign.Body{
+    background-image: url("../../img/Cards/foreign.svg");
+}
+.Visual.Disturbance{
+    background-image: url("../../img/Cards/visual.svg");
+    color:white;
+    font-weight:900;
+}
+
+.Eye.Pain{
+    background-image: url("../../img/Cards/eyepain.svg");
+
+}
+
+.Red.Eye{
+    background-image: url("../../img/Cards/redeye.svg");
+    
+
+}
+.Photophobia{
+    background-image: url("../../img/Cards/photo.svg");
+    
+
+}
+.Diplopia{
+    background-image: url("../../img/Cards/diplopia.svg");
+    color:white;
+
+}
+.Periorbital.Swelling{
+    background-image: url("../../img/Cards/swelling.svg");
+    color:white;
+}
+.Eye.Trauma{
+    background-image: url("../../img/Cards/eyetrauma.svg");
+    color:white;
+}
+.Re-Check.Eye{
+    background-image: url("../../img/Cards/recheck.svg");
+}
+
+

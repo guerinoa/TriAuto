@@ -1,0 +1,22 @@
+.emptyprof{
+    background: url("./human.jpg") center  no-repeat ;
+
+}
+
+.femaleDiv{
+    background: url("./human.jpg") center  no-repeat ;
+
+}
+
+.mainForm{
+    height:90vh;
+    z-index: -1;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(42, 57, 77);
+}
+
+.ohipbox{
+    background-color: rgb(231, 230, 230);
+    
+}

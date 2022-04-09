@@ -1,0 +1,243 @@
+* {
+    box-sizing: border-box;
+  }
+  
+    Body {
+  
+    background: white
+  }
+  .MainDiv{
+    flex:1
+  }
+
+  .emptySection{
+    height:90vh;
+    flex-direction: 'row'
+  }
+  .EmptyProfile {
+      
+      /**background:linear-gradient(to right, #f88e80, #a74f4f);*/ 
+      background:rgb(42, 57, 77);
+      width: 70%;
+      height: 85vh;
+      
+
+  }
+  .emptyprof{
+    display:flex;
+    flex:1;
+    justify-content:'center';
+  }
+  .field, .OHIP{
+    display:'flex';
+    width: 70%;
+    height: 40px;
+    border-radius: 4px;
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.3);
+    transition: 0.3s background-color ease-in-out, 0.3s box-shadow ease-in-out;
+    margin:10px;
+    box-shadow:  5px 5px 10px 0px #1f1e1e;
+
+  }
+
+  .welcome >h1 {
+      font-size: 50px;
+      color:white;
+  }
+ .comments{
+    width: 70%;
+    height: 100px;
+    border-radius: 4px;
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.3);
+    transition: 0.3s background-color ease-in-out, 0.3s box-shadow ease-in-out;
+    margin:10px;
+    box-shadow:  5px 5px 10px 0px #1f1e1e;
+  }
+  .OHIP{
+    background-color: rgba(255, 255, 255, 0.45);
+    box-shadow: inset 0px 0px 0px 0px #ffffff;
+}
+
+    .OHIP >h3 {
+    font-family: "Gotham SSm A", "Gotham SSm B", sans-serif;
+    text-align: center;
+    justify-content: center;
+    line-height: normal;
+    margin-top: 10px;
+
+    }
+
+  .PatientSex {
+      justify-content: center;
+  }
+  .PatientSex select{
+    text-align-last: center;
+    background-color: #b1231f;
+    color: white;
+    padding: 12px;
+    width: 100px;
+    border: none;
+    font-size: 20px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    -webkit-appearance: button;
+    appearance: button;
+    outline: none;
+    border-radius: 5px;
+    cursor:pointer;
+  }
+
+  .PatientSex:hover::before {
+    color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(255, 255, 255, 0.2);
+   
+  }
+  .PatientSex select option {
+    padding: 30px;
+  }
+  .field:hover, .comments:hover{
+    background-color: rgba(255, 255, 255, 0.45);
+    box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.05);
+  }
+  .field input, .comments input {
+    width: 100%;
+    height: 40px;
+    position: relative;
+    padding: 0px 16px;
+    border: none;
+    border-radius: 4px;
+    font-family: "Gotham SSm A", "Gotham SSm B", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: normal;
+    background-color: transparent;
+    color: #282828;
+    outline: none;
+    box-shadow: 0px 4px 20px 0px transparent;
+    transition: 0.3s background-color ease-in-out, 0.3s box-shadow ease-in-out,
+      0.1s padding ease-in-out;
+    -webkit-appearance: none;
+  }
+ .comments input {
+
+    height: 100px;
+  }
+
+  .field input::-webkit-input-placeholder, .comments input::-webkit-input-placeholder {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .field input:focus , .comments input:focus{
+    background-color: #ffffff;
+    box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.2);
+  }
+
+ 
+  .PatientDOB input[type="date"]{
+      background-color: #b1231f;
+      font-family: "Robot Mono", monospace;
+      color: white;
+      font-size: 14px;
+      border:none;
+      outline:none;
+      border-radius:5px;
+      margin-top:20px;
+      padding:15px;
+      height:40px
+  }
+  ::-webkit-calendar-picker-indicator{
+      background-color: #ffffff;
+      padding:5px;
+      cursor:pointer;
+      border-radius: 3px;
+  }
+  .BottomButton{
+    background:rgb(42, 57, 77);
+    height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .RightPatient{
+    display:flex;
+    flex-direction:column;
+    flex:2;
+    justify-content:center
+}
+
+.leftSide{
+  display:flex;
+  flex-direction:column;
+  margin:20px;
+}
+
+@media screen and (max-width:960px)  {
+  .emptySection {
+
+    flex-direction: row;
+    height:95vh;
+
+
+  }
+}
+
+
+@media screen and (max-width:790px)  {
+  .emptySection {
+
+    height:100vh;
+  }
+
+  .emptyprof{
+    display:none;
+    height: 100vh;
+  }
+  .middlePart{
+    flex-direction: column;
+    width:100%;
+    
+  }
+  .EmptyProfile {
+    height: 100vh;
+  
+}
+.RightPatient{
+  height:100vh;
+}
+
+.welcome >h1 {
+  font-size: 40px;
+  color:white;
+}
+
+.nameInfo, .numberEmail, .heightWeight{
+  flex-direction: column;
+  width:100%;
+  align-items: center;
+}
+
+.field, .OHIP{
+  height:30px;
+}
+.field input{
+
+  height: 30px;
+  padding: 0px 0px;
+  font-size: 12px;
+  font-weight: 400;
+  text-align: center;
+}
+.comments input {
+  height: 40px;
+  padding: 0px 0px;
+  font-size: 12px;
+  font-weight: 400;
+  text-align: center;
+}
+.PatientDOB{
+  justify-content: center;
+}
+
+}
