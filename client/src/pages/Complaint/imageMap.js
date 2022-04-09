@@ -16,7 +16,8 @@ export default function ImageMap(props) {
   const [hoveredArea, setHoveredArea] = useState(null);
   const [areaClicked, setAreaClicked] = useState('');
   const location = useLocation()
-  const patientComplaint = location.state.patientComplaint
+  const patientOhip = location.state.patientOhip
+  const complaintList = location.state.complaintList
   const [fillcolor,setColor]= useState(location.state.fillcolor)
   const fillcolors = ['#eab54d4d','#00ff194c']
 
@@ -33,7 +34,7 @@ export default function ImageMap(props) {
   const handleMouseLeaveArea = (area, index, event) => {
     setHoveredArea(null);
   };
-  console.log(patientComplaint)
+ 
   const handleAreaClick = (area, index, event) => {
     setAreaClicked(area.title)
   };
@@ -61,12 +62,12 @@ export default function ImageMap(props) {
        }
     <div style = {{display:'flex', height: '90vh',flexDirection:'row',  alignItems:'center',justifyContent:'center',backgroundColor :'White'}}> 
      
-      {areaClicked === 'Head' && <CardItem area = {Head}  patientComplaint = {patientComplaint}  />}
-      {areaClicked === 'Neck' && <CardItem area = {Neck}   patientComplaint = {patientComplaint} />}
-      {areaClicked === 'Chest' && <CardItem area = {Chest}  patientComplaint = {patientComplaint}  />}
-      {areaClicked === 'Abdominal' && <CardItem area = {Abdominal }patientComplaint = {patientComplaint}  />}
-      {areaClicked === 'HipGroin' && <CardItem area = {HipGroin}  patientComplaint = {patientComplaint}  />}
-      {areaClicked === 'LegFoot' && <CardItem area = {LegFoot}  patientComplaint = {patientComplaint}  />}
+      {areaClicked === 'Head' && <CardItem area = {Head}  patientOhip = {patientOhip} complaintList = {complaintList}  />}
+      {areaClicked === 'Neck' && <CardItem area = {Neck}   patientOhip = {patientOhip} complaintList = {complaintList} />}
+      {areaClicked === 'Chest' && <CardItem area = {Chest}  patientOhip = {patientOhip} complaintList = {complaintList} />}
+      {areaClicked === 'Abdominal' && <CardItem area = {Abdominal } patientOhip = {patientOhip} complaintList = {complaintList} />}
+      {areaClicked === 'HipGroin' && <CardItem area = {HipGroin}  patientOhip = {patientOhip} complaintList = {complaintList} />}
+      {areaClicked === 'LegFoot' && <CardItem area = {LegFoot}  patientOhip = {patientOhip} complaintList = {complaintList} />}
    
     </div>  
     </>

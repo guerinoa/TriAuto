@@ -13,8 +13,8 @@ import Navbar from './components/Navbar';
 import {HashRouter as Router, Switch, Route} from 'react-router-dom';
 import LandingPage from './pages/LandingPage/LandingPage';
 import ImageMap from './pages/Complaint/imageMap';
-
-
+import BeginCollection from "./pages/VitalSignCollection/BeginCollection";
+import CurrentPatient from "./pages/patient/CurrentPatient"
 class App extends Component {
 // state = {
 //     data: null
@@ -52,6 +52,8 @@ class App extends Component {
        <Route path='/wait' component={Wait} />
        <Route path='/complaint' component={Complaint} />
        <Route path='/imagemap' component={ImageMap} />
+       <Route path='/begincollection' component={BeginCollection} />
+      <Route path='/currentpatient' component={CurrentPatient} /> 
      </Switch>
    </Router> 
     );

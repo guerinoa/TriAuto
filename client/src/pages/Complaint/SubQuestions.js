@@ -23,7 +23,8 @@ function SubQuestions(props) {
     }
     return (
             <div>
-                {props.cedisVal === FOREIGNBODY || props.cedisVal === VISUALDISTURBANCE && OpthaSubQ()}
+                
+                {(props.cedisVal === FOREIGNBODY || props.cedisVal === VISUALDISTURBANCE) && OpthaSubQ()}
           </div> 
     )
 }

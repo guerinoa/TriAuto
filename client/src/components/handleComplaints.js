@@ -33,7 +33,7 @@ function HandleComplaints() {
     //for specific values
     const specificComplaintChange= (name,value) => {
           setPatientComplaint({
-            ...patientComplaint,
+            ...patientComplaint,  
             [name]:value
           })
     }
@@ -56,13 +56,13 @@ function HandleComplaints() {
     }
 
     const addItem = () => {
-      Axios.post('http://localhost:4000/complaintList/create',{
+      Axios.post('http://localhost:8080/complaintList/create',{
         patientComplaint: patientComplaint
         });
     };
 
     const getPatientComplaint = (ohip) => {
-        Axios.get(`http://localhost:4000/complaintList/${ohip}`).then((response)=> {
+        Axios.get(`http://localhost:8080/complaintList/${ohip}`).then((response)=> {
 
             setComplaintList(response.data); 
             console.log(complaintList)
@@ -70,7 +70,7 @@ function HandleComplaints() {
     }
 
     const deleteItem = (ohipNum,id)=> {
-      Axios.delete(`http://localhost:4000/complaintList/delete/${id}`).then((response)=> {
+      Axios.delete(`http://localhost:8080/complaintList/delete/${id}`).then((response)=> {
         /*setComplaintList(complaintList.filter(complaint=>complaint.ComplaintId!=id))*/
         getPatientComplaint(ohipNum)
               });

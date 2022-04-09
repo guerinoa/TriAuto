@@ -5,8 +5,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { useState, useEffect } from "react";
 import { io } from "socket.io-client";
 import { Link,useLocation } from 'react-router-dom';
-import PatientProfile from '../../pages/patient/patient_profile';
-import EmptyProfile from '../../pages/patient/empty_profile';
 import HandleComplaints from '../../components/handleComplaints';
 import AwesomeSlider from 'react-awesome-slider';
 import 'react-awesome-slider/dist/styles.css';
@@ -16,38 +14,50 @@ import FormDialog from '../../components/FormDialog';
 import ImageMap from './imageMap'
 import AddComplaint from './AddComplaint';
 import {Redirect} from 'react-router';
+import Axios from 'axios';
 
 function Complaint() {
     const location = useLocation()
     const cP = location.state.pO
-    const {complaintList,getPatientComplaint, patientComplaint,setPatientComplaint, deleteItem} = HandleComplaints();
+    const complaintList = location.state.complaintList
     const [isPressed,setIsPressed] = useState(false)
+    const [isBeingCollected,setIsBeingCollected] = useState(false)
     const [selectedIDs, setSelectedIds] = useState(new Set())
     const [changeMade, setChangeMade] = useState(false)
-    
-    useEffect(() => {
-        getPatientComplaint(cP);
-      }, [])
-   
-    useEffect(() => {
-        if(changeMade) {
-            getPatientComplaint(cP);
-            setChangeMade(false)
-        }
-      }, [changeMade])
-
+    const [dummyList, setDummyList] = useState([])
+       
     function press() {
-        console.log(selectedIDs);
         setIsPressed(true)
-        setPatientComplaint ({
-            OHIP: cP,           
-        })  
+    }
+
+    function beginCollection() {
+        Axios.post('http://localhost:8080/vitalList/createVital',{
+            patientOhip: cP
+            }).then(()=>
+            {
+              console.log("added!")
+            } 
+            );
+        
+        setIsBeingCollected(true)
+    }
+    
+    const deleteItem = (ohipNum,id)=> {
+        Axios.delete(`http://localhost:8080/complaintList/delete/${id}`)
+      }
+      
+    const getPatientComplaint = (ohip) => {
+        Axios.get(`http://localhost:8080/complaintList/${ohip}`).then((response)=> {
+            setDummyList(response.data); 
+            setChangeMade(true)
+        });
     }
 
     function deleteComplaint() {
        selectedIDs.map(idToDelete => complaintList.map(complaints => complaints.ComplaintID === idToDelete && deleteItem(complaints.OHIP,idToDelete)))
-       selectedIDs.map(idToDelete => complaintList.filter(complaints => complaints.ComplaintID != idToDelete))
-       setChangeMade(true)
+       /*selectedIDs.map(idToDelete => complaintList.filter(complaints => complaints.ComplaintID != idToDelete))*/
+       getPatientComplaint()
+
     }
 
     const columns = [
@@ -103,7 +113,7 @@ function Complaint() {
 
         <DataGrid
             getRowId={row => row.ComplaintID}
-            rows={complaintList}
+            rows= {complaintList}
             columns={columns}
             pageSize={20}
             rowsPerPageOptions={[5]}
@@ -117,8 +127,9 @@ function Complaint() {
         <Button style={{marginRight: 20}} variant = "contained" color = "primary" onClick = {()=>deleteComplaint()}> Delete</Button>
 
 
-        {complaintList.length < 3 ? <Button variant = "contained" color = "secondary" onClick = {()=>press()}> Add Complaint </Button> : <Button variant = "contained" disabled> Add Complaint </Button> } 
-   
+        {complaintList.length < 3 ? <Button style={{marginRight: 20}} variant = "contained" color = "secondary" onClick = {()=>press()}> Add Complaint </Button> : <Button style={{marginRight: 20}} variant = "contained" disabled> Add Complaint </Button> } 
+        
+        {complaintList.length > 0 ? <Button variant = "contained" color = "success" onClick = {()=>beginCollection()}> Begin Collection </Button> : <Button variant = "contained" disabled> Begin Collection </Button>  }
                 
        
             {isPressed && 
@@ -127,12 +138,22 @@ function Complaint() {
                     <Redirect to={{
                     pathname: "/imagemap",
                     state: {
-                            patientComplaint:patientComplaint,          
+                            patientOhip:cP,     
+                            complaintList: complaintList,     
                             fillcolor: '#00ff194c'    
                     }
                     }}/>
             </div> 
             </div> }
+
+            {isBeingCollected  && <Redirect to={{
+                    pathname: "/begincollection",
+                    state: {
+                        patientOhip:cP,      
+                    }
+                    }}/>
+
+            }
 
         </> 
         

@@ -12,23 +12,49 @@ import SubQuestions from './SubQuestions';
 import { textAlign } from '@mui/system';
 import './cardStyle.css';
 import {Redirect} from 'react-router';
+import Axios from 'axios';
 
 function CardItem(props) {
     const [nextState, setNextState] = useState(false)
     const [area, setArea] = useState(props.area)
-    const [value, setValue] = useState("")
-    const [comments, setComments] = useState("")
-    const [painVal, setPainValue] = useState("")
     const [cedisVal, setCedisVal] = useState(0) 
-    const [ctasVal, setCtasVal]  = useState(0)
     const [subQNeeded, setSubQNeeded] = useState(false)
-    const {patientComplaint,patientComplaintChange,specificComplaintChange,listComplaintChange, setPatientComplaint, addItem} = HandleComplaints();
     const [isSubmit, setIsSubmit] = useState(false)
-    const patientOhip = props.patientComplaint.OHIP; 
+    const [next, setNext] = useState(false)
+    const [isAdded, setAdded] = useState(false)
+    const patientOhip = props.patientOhip; 
+    const [complaintList, setComplaintList] = useState(props.complaintList)
 
-    useEffect(() => { 
-        specificComplaintChange("OHIP",patientOhip)  
-      }, [])
+
+    const [patientComplaint, setComplaint] = useState({
+        OHIP: patientOhip,
+        VisitID: 0,
+        PatientComplaint: '',
+        PatientCtasLevel: 0,
+        ComplaintEvent: '',
+        PatientPainLevel: 0,
+        PatientSymptomList: '',
+        PatientComments: '',
+    });
+    
+    const complaintChange = (prop) => (event) => {
+        setComplaint({ ...patientComplaint, [prop]: event.target.value });
+      };
+
+    const specificComplaintChange= (name,value) => {
+        setComplaint({
+        ...patientComplaint,  
+        [name]:value
+    })
+    }
+      const listChange= (list1,list2) => {
+        setComplaint({
+          ...patientComplaint,
+          [list1[0]]:list2[0],
+          [list1[1]]:list2[1],
+          [list1[2]]:list2[2]
+        })
+        }
 
     function buttonPress(BodyPart){
         if(BodyPart === 'Face') { setArea(Face) }
@@ -39,38 +65,38 @@ function CardItem(props) {
         else {
             setNextState(true)
             Object.entries(CedisCtasValues).map(([key,cvalue])=> {
-                key === BodyPart && listComplaintChange(["PatientComplaint","PatientCtasLevel","ComplaintEvent"],[cvalue[0],cvalue[1],BodyPart])
-                if(key === BodyPart && cvalue[1]===0) {setSubQNeeded(true)} 
-                key === BodyPart && setCtasVal(cvalue[1])
+                key === BodyPart && listChange(["PatientComplaint","PatientCtasLevel","ComplaintEvent"],[cvalue[0],cvalue[1],BodyPart])
                 key === BodyPart && setCedisVal(cvalue[0])
+                
+                if(key === BodyPart && cvalue[1]===0) {setSubQNeeded(true)} 
+
             })
 
         }
     }
-    const handleChange = e => {
-        setValue(e.target.value)
-        patientComplaintChange(e)
+
+    const addComplaint =() => {
+        Axios.post('http://localhost:8080/complaintList/create',{
+            patientComplaint: patientComplaint
+            })
+        setNext(true)
+    }
+    const getPatientComplaint = () => {
+        Axios.get(`http://localhost:8080/complaintList/${patientOhip}`).then((response)=> {
+            setComplaintList(response.data); 
+            setAdded(true)
+            
+        }); 
+        setIsSubmit(true)
 
     }
-    const handleComments = e => {
-        setComments(e.target.value)
-        patientComplaintChange(e)
-    }
-    const onPainChange = (event,newvalue) =>{
-        setPainValue(newvalue)
-        patientComplaintChange(event)
-    }
-    
-    function onSubmit() {
-        addItem()
-        setIsSubmit(true)
-    }
+
     function PainAndSymptomsDisplay(){
         return (
             <div> 
                 <div style={{ flexDirection: "row", height:'300px'}}>
                     <h2 style ={{marginBottom:0}}> Please rate your pain level: </h2> 
-                        <Slider marks = {marks} min={1} max={10} name = "PatientPainLevel" valueLabelDisplay = "auto" defaultValue = {0} onChange= {onPainChange}
+                        <Slider marks = {marks} min={1} max={10} name = "PatientPainLevel" valueLabelDisplay = "auto" value = {patientComplaint.PatientPainLevel} onChange= {complaintChange("PatientPainLevel")}
                                 sx ={{
                                     ":hover":{
                                     boxShadow:0,
@@ -82,7 +108,7 @@ function CardItem(props) {
                 <form sx={{ flexDirection: "row", height:'200px'}} >
         
                 <label > Please enter any other symptoms: </label> 
-                <TextField label="Symptoms" name ="PatientSymptomList" variant = "filled" color = "primary" value = {value} onChange = {handleChange} 
+                <TextField label="Symptoms" name ="PatientSymptomList" variant = "filled" color = "primary" value = {patientComplaint.PatientSymptomList} onChange = {complaintChange("PatientSymptomList")} 
                     fullWidth
                     required />   
                
@@ -95,11 +121,12 @@ function CardItem(props) {
                         variant = "filled" 
                         name = "PatientComments"
                         color = "primary" 
-                        value = {comments}
-                        onChange  = {handleComments}
+                        value = {patientComplaint.PatientComments}
+                        onChange  = {complaintChange("PatientComments")}
                         fullWidth
                         required />   
-                <Button onClick = {()=>onSubmit()} > Submit </Button>
+                <Button disabled = {!next ?false:true} onClick = {()=>addComplaint()} > Submit </Button>
+                <Button color = "success" disabled = {!next ?true:false} onClick = {()=>getPatientComplaint()} > table </Button>
                 </form>     
             </div> 
         )
@@ -120,14 +147,15 @@ function CardItem(props) {
         <Button  onClick = {()=>buttonPress(items)}><Card style={{"width":"145px","height":"145px", "margin":"25px"}} background={"Plum"} hoverType={"zoom"}> <div className = {items}>  {items} </div> </Card>  </Button> 
         ) } </div>
                                             
-          </div>  : subQNeeded ? <SubQuestions cedisVal ={cedisVal} specificComplaintChange={specificComplaintChange} setSubQNeeded = {setSubQNeeded}/> : PainAndSymptomsDisplay() } 
+          </div>  : subQNeeded ? <SubQuestions cedisVal ={cedisVal} specificComplaintChange={specificComplaintChange} setSubQNeeded = {setSubQNeeded} /> : PainAndSymptomsDisplay() } 
             
-          {isSubmit && 
+          {(isSubmit === true && isAdded === true) && 
             <div style={{display:'flex', alignItems:'center'}}>
                     <Redirect to={{
                     pathname: "/complaint",
                     state: {
-                        pO:patientOhip                
+                        pO:patientOhip,
+                        complaintList: complaintList              
                     }
                     }}/>
             </div> }
