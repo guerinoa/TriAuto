@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import Home from "./pages/Home/Home"
-import Patient from "./pages/patient/Patient"
-import Nurse from "./pages/Nurse/Nurse"
 import Complaint from "./pages/Complaint/Complaint"
 import Role from "./pages/Role/Role";
 import Wait from "./pages/Wait/Wait";
@@ -18,6 +16,7 @@ import CurrentPatient from "./pages/patient/CurrentPatient"
 import Login from "./pages/Nurse/Login";
 import Landing from "./pages/Nurse/Landing";
 import Details from "./pages/Nurse/Details";
+import Loading from "./pages/Loading/Loading";
 
 class App extends Component {
 
@@ -29,11 +28,9 @@ class App extends Component {
         <Route path='/' exact component={Home} />
        <Route path='/landingpage' exact component={LandingPage}/>
        <Route path='/role' component={Role} />
-       <Route path='/patient' component={Patient} />
        <Route path='/ohip' component={Ohip} />
        <Route path='/patientsection' component={PatientSection} />
        <Route path='/emptysection' component={EmptySection} />
-       <Route path='/nurse' component={Nurse} />
        <Route path='/wait' component={Wait} />
        <Route path='/complaint' component={Complaint} />
        <Route path='/imagemap' component={ImageMap} />
@@ -44,6 +41,8 @@ class App extends Component {
        <Route path='/nurselogin' component={Login}/>
        <Route path='/nurselanding' component={Landing}/>
        <Route path='/details' component={Details}/>
+
+       <Route path='/loading' component={Loading}/>
 
      </Switch>
    </Router> 

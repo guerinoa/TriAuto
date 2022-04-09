@@ -3,7 +3,6 @@ import Button from '@mui/material/Button';
 import { IconButton} from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useState, useEffect } from "react";
-import { io } from "socket.io-client";
 import { Link,useLocation } from 'react-router-dom';
 import HandleComplaints from '../../components/handleComplaints';
 import AwesomeSlider from 'react-awesome-slider';
@@ -15,6 +14,7 @@ import ImageMap from './imageMap'
 import AddComplaint from './AddComplaint';
 import {Redirect} from 'react-router';
 import Axios from 'axios';
+import './complaint.css';
 
 function Complaint() {
     const location = useLocation()
@@ -25,21 +25,30 @@ function Complaint() {
     const [selectedIDs, setSelectedIds] = useState(new Set())
     const [changeMade, setChangeMade] = useState(false)
     const [dummyList, setDummyList] = useState([])
+    const [loading, setLoading] = useState(false)
        
     function press() {
         setIsPressed(true)
     }
 
     function beginCollection() {
-        Axios.post('http://localhost:8080/vitalList/createVital',{
-            patientOhip: cP
-            }).then(()=>
-            {
-              console.log("added!")
-            } 
-            );
+
+        // Get visit id of most recent vist
+        Axios.post('http://localhost:8080/vitalList/collection', {ohip: cP}).then(function (response) {
+            console.log(response);
+        })
+
+        setLoading(true)
+
+        // Axios.post('http://localhost:8080/vitalList/createVital',{
+        //     patientOhip: cP
+        //     }).then(()=>
+        //     {
+        //       console.log("added!")
+        //     } 
+        //     );
         
-        setIsBeingCollected(true)
+        // setIsBeingCollected(true)
     }
     
     const deleteItem = (ohipNum,id)=> {
@@ -109,12 +118,13 @@ function Complaint() {
     ]  
     return (
        <> 
-       <div id = 'complaintTable' style={{ height: 830, width: '100%' }}>
+       <div id = 'complaintTable' style={{ width: '100%' }}>
 
         <DataGrid
             getRowId={row => row.ComplaintID}
             rows= {complaintList}
             columns={columns}
+            autoHeight
             pageSize={20}
             rowsPerPageOptions={[5]}
             checkboxSelection
@@ -124,13 +134,16 @@ function Complaint() {
             }}
         />
         </div>
+        <div id="wrapper">
         <Button style={{marginRight: 20}} variant = "contained" color = "primary" onClick = {()=>deleteComplaint()}> Delete</Button>
 
 
         {complaintList.length < 3 ? <Button style={{marginRight: 20}} variant = "contained" color = "secondary" onClick = {()=>press()}> Add Complaint </Button> : <Button style={{marginRight: 20}} variant = "contained" disabled> Add Complaint </Button> } 
+
+        <br></br>
         
-        {complaintList.length > 0 ? <Button variant = "contained" color = "success" onClick = {()=>beginCollection()}> Begin Collection </Button> : <Button variant = "contained" disabled> Begin Collection </Button>  }
-                
+            {complaintList.length > 0 ? <Button variant = "contained" color = "success" onClick = {()=>beginCollection()}> Begin Collection </Button> : <Button variant = "contained" disabled> Begin Collection </Button>  }
+        </div>   
        
             {isPressed && 
             <div id = "mapImage"  style = {{display:'flex', height: '90vh',flexDirection:'row', justifyContent:'center',backgroundColor :'White'}}>
@@ -146,14 +159,24 @@ function Complaint() {
             </div> 
             </div> }
 
-            {isBeingCollected  && <Redirect to={{
+            {/* {isBeingCollected  && <Redirect to={{
                     pathname: "/begincollection",
                     state: {
                         patientOhip:cP,      
                     }
                     }}/>
 
-            }
+            } */}
+
+            {loading && (
+                <Redirect to={{
+                    pathname: "/loading",
+                    state: {
+                        patientOhip:cP, 
+                        visit: complaintList.slice(-1)[0].VisitID   
+                    }
+                    }}/>
+            )}
 
         </> 
         
