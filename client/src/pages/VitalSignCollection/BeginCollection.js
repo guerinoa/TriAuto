@@ -16,6 +16,7 @@ import {Redirect} from 'react-router';
 function BeginCollection() {
     const location = useLocation()
     const patientOhip = location.state.patientOhip
+    
     const [isSubmit, setSubmit] = useState(false)
     const [isNext, setNext] = useState(false)
     const [age, setAge] = useState('')
@@ -27,10 +28,27 @@ function BeginCollection() {
         PatientHeartRate: '',
         PatientTemperature: '',
       });
+    const [collection, setCollection] = useState(false)
     
       useEffect(() => {
         getAge();
         getCEDISCTAS();
+
+        // Check if other vital signs have been collected by MCU
+        const intervalId = setInterval(() => {  //assign interval to a variable to clear it.
+            Axios.get('http://localhost:8080/vitalList/collectionReady')
+            .then(response => {
+                console.log(response)
+                if (response.data == 1){
+                    setCollection(true)
+                } else {
+                    setCollection(false)
+                }
+            });
+        }, 5000)
+        
+        return () => clearInterval(intervalId); //This is important
+
       }, [])
 
       const handleChange = (prop) => (event) => {
@@ -73,10 +91,12 @@ function BeginCollection() {
             <div className = "collectionbox" style = {{display: 'flex', flexDirection:'column', width: '50%', height: '60%'}} > 
                     <div className = "collectionform" style = {{display: 'flex', height:'100%', justifyContent:'center', alignItems:'flex-end'}}> 
                    <Box sx={{ display: 'flex', height:'100%', alignItems:'center', flexDirection:'column', flexWrap: 'wrap' }}> 
-                            <h3 style={{marginTop:'20px', marginBottom:'20px'}}>Please input your vital signs:    </h3> 
-                         <div>
-                            <FormControl sx={{ m: 1, width: '13ch' }} variant="outlined">
+                            <h2 style={{marginTop:'10px'}}>Running measurement routine... </h2> 
+                            <h3 style={ { marginBottom:'10px'}}>When complete enter blood pressure and heart rate values:    </h3> 
+                            <div>
+                            <FormControl sx={{ m: 1 }} variant="outlined">
                             <OutlinedInput
+                                type='number'
                                 disabled = {isSubmit? true : false} 
                                 value={vitalSigns.PatientBloodPressureSys}
                                 onChange={handleChange('PatientBloodPressureSys')}
@@ -86,11 +106,13 @@ function BeginCollection() {
                                 'aria-label': 'PatientBloodPressureSys',
                                 }}
                             />
-                            <FormHelperText id="outlined-weight-helper-text">Systolic</FormHelperText>
+                            <FormHelperText id="outlined-weight-helper-text">Systolic Blood Pressure</FormHelperText>
                             </FormControl>
-
-                            <FormControl sx={{ m: 1, width: '13ch' }} variant="outlined">
+                            </div>
+                            <div>
+                            <FormControl sx={{ m: 1 }} variant="outlined">
                             <OutlinedInput 
+                                type='number'
                                 disabled = {isSubmit? true : false} 
                                 value={vitalSigns.PatientBloodPressureDia}
                                 onChange={handleChange('PatientBloodPressureDia')}
@@ -100,28 +122,14 @@ function BeginCollection() {
                                 'aria-label': 'PatientBloodPressureDia',
                                 }}
                             />
-                            <FormHelperText id="outlined-weight-helper-text">Diastolic</FormHelperText>
+                            <FormHelperText id="outlined-weight-helper-text">Diastolic Blood Pressure</FormHelperText>
                             </FormControl>
                             </div>
                             <div>
-                            <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
-                            <OutlinedInput
-                                disabled = {isSubmit? true : false} 
-                                value={vitalSigns.PatientBloodOxygen}
-                                onChange={handleChange('PatientBloodOxygen')}
-                                endAdornment={<InputAdornment position="end">SpO2</InputAdornment>}
-                                aria-describedby="outlined-patientbloodoxygen-helper-text"
-                                inputProps={{
-                                'aria-label': 'PatientBloodOxygen',
-                                }}
-                            />
-                            <FormHelperText id="outlined-weight-helper-text">Blood Oxygen</FormHelperText>
-                            </FormControl>
-                            </div> 
-                            <div>
 
-                            <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
+                            <FormControl sx={{ m: 1}} variant="outlined">
                             <OutlinedInput
+                                type='number'
                                 disabled = {isSubmit? true : false} 
                                 value={vitalSigns.PatientHeartRate}
                                 onChange={handleChange('PatientHeartRate')}
@@ -135,29 +143,12 @@ function BeginCollection() {
                             </FormControl>
 
                             </div> 
-                            <div>
-
-                            <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
-                            <OutlinedInput
-                                disabled = {isSubmit? true : false} 
-                                value ={vitalSigns.PatientTemperature}
-                                onChange={handleChange('PatientTemperature')}
-                                endAdornment={<InputAdornment position="end">°C</InputAdornment>}
-                                aria-describedby="outlined-patienttemperature-helper-text"
-                                inputProps={{
-                                'aria-label': 'PatientTemperature',
-                                }}
-                            />
-                            <FormHelperText id="outlined-weight-helper-text">Temperature</FormHelperText>
-                            </FormControl>
-
-                            </div>
                     
                      </Box>
                     
                     </div>  
                 
-                    <div className = "buttonSubmit" style = {{display: 'flex', backgroundColor: 'rgb(231, 230, 230)',justifyContent:'center',alignItems:'flex-start'}}>  <Button disabled = {isSubmit ? true : false} onClick = {()=> updateVitals()}>Submit</Button>  <Button  disabled = {isSubmit ? false : true} onClick = {()=> setSubmit(false)}>Update</Button> <Button  disabled = {isSubmit ? false : true} onClick = {()=> setNext(true)}>Next</Button></div>
+                    <div className = "buttonSubmit" style = {{display: 'flex', backgroundColor: 'rgb(231, 230, 230)',justifyContent:'center',alignItems:'flex-start'}}>  <Button variant='outlined' disabled={!collection} onClick = {()=> updateVitals()}>Submit</Button>  </div>
                    
                    
                     {isNext  && <Redirect to={{

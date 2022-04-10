@@ -25,6 +25,8 @@ function CurrentPatient() {
 
         
     useEffect(() => {
+        // Should create a new visit entry in database
+        
         getPatientComplaint();
       }, [])
        
