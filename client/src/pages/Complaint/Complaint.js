@@ -40,15 +40,15 @@ function Complaint() {
 
         setLoading(true)
 
-        // Axios.post('http://localhost:8080/vitalList/createVital',{
-        //     patientOhip: cP
-        //     }).then(()=>
-        //     {
-        //       console.log("added!")
-        //     } 
-        //     );
+        Axios.post('http://localhost:8080/vitalList/createVital',{
+            patientOhip: cP
+            }).then(()=>
+            {
+              console.log("added!")
+            } 
+            );
         
-        // setIsBeingCollected(true)
+        setIsBeingCollected(true)
     }
     
     const deleteItem = (ohipNum,id)=> {

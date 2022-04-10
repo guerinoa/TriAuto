@@ -28,10 +28,27 @@ function BeginCollection() {
         PatientHeartRate: '',
         PatientTemperature: '',
       });
+    const [collection, setCollection] = useState(false)
     
       useEffect(() => {
         getAge();
         getCEDISCTAS();
+
+        // Check if other vital signs have been collected by MCU
+        const intervalId = setInterval(() => {  //assign interval to a variable to clear it.
+            Axios.get('http://localhost:8080/vitalList/collectionReady')
+            .then(response => {
+                console.log(response)
+                if (response.data == 1){
+                    setCollection(true)
+                } else {
+                    setCollection(false)
+                }
+            });
+        }, 5000)
+        
+        return () => clearInterval(intervalId); //This is important
+
       }, [])
 
       const handleChange = (prop) => (event) => {
@@ -131,7 +148,7 @@ function BeginCollection() {
                     
                     </div>  
                 
-                    <div className = "buttonSubmit" style = {{display: 'flex', backgroundColor: 'rgb(231, 230, 230)',justifyContent:'center',alignItems:'flex-start'}}>  <Button variant='outlined' disabled = {isSubmit ? true : false} onClick = {()=> updateVitals()}>Submit</Button>  </div>
+                    <div className = "buttonSubmit" style = {{display: 'flex', backgroundColor: 'rgb(231, 230, 230)',justifyContent:'center',alignItems:'flex-start'}}>  <Button variant='outlined' disabled={!collection} onClick = {()=> updateVitals()}>Submit</Button>  </div>
                    
                    
                     {isNext  && <Redirect to={{
