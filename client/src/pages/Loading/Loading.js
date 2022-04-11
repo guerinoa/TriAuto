@@ -19,7 +19,7 @@ const Loading = () => {
         const intervalId = setInterval(() => {  //assign interval to a variable to clear it.
             axios.get('http://localhost:8080/vitalList/beginCollectionFront')
             .then(response => {
-                setRedirect(response);
+                setRedirect(response.data);
             });
         }, 5000)
         
