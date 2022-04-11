@@ -28,7 +28,7 @@ function BeginCollection() {
         PatientHeartRate: '',
         PatientTemperature: '',
       });
-    const [collection, setCollection] = useState(false)
+    const [collection, setCollection] = useState(null)
     
       useEffect(() => {
         getAge();
@@ -39,13 +39,13 @@ function BeginCollection() {
             Axios.get('http://localhost:8080/vitalList/collectionReady')
             .then(response => {
                 console.log(response)
-                if (response.data == 1){
-                    setCollection(true)
+                if (response){
+                    setCollection(response.data)
                 } else {
-                    setCollection(false)
+                    setCollection(null)
                 }
             });
-        }, 5000)
+        }, 1000)
         
         return () => clearInterval(intervalId); //This is important
 
@@ -88,6 +88,21 @@ function BeginCollection() {
     
     
         <div className = 'main' style = {{display: 'flex', flexDirection:'column'}} >  
+
+        {/* Adding the help page */}
+        {collection == 2 && (
+                <Redirect to={{
+                    pathname: "/patient/help",
+                    }}/>
+            )}
+
+        {/* Adding the error page */}
+        {collection == 3 && (
+                <Redirect to={{
+                    pathname: "/patient/error",
+                    }}/>
+            )}
+
             <div className = "collectionbox" style = {{display: 'flex', flexDirection:'column', width: '50%', height: '60%'}} > 
                     <div className = "collectionform" style = {{display: 'flex', height:'100%', justifyContent:'center', alignItems:'flex-end'}}> 
                    <Box sx={{ display: 'flex', height:'100%', alignItems:'center', flexDirection:'column', flexWrap: 'wrap' }}> 
@@ -148,7 +163,7 @@ function BeginCollection() {
                     
                     </div>  
                 
-                    <div className = "buttonSubmit" style = {{display: 'flex', backgroundColor: 'rgb(231, 230, 230)',justifyContent:'center',alignItems:'flex-start'}}>  <Button variant='outlined' disabled={!collection} onClick = {()=> updateVitals()}>Submit</Button>  </div>
+                    <div className = "buttonSubmit" style = {{display: 'flex', backgroundColor: 'rgb(231, 230, 230)',justifyContent:'center',alignItems:'flex-start'}}>  <Button variant='outlined' disabled={collection != 1} onClick = {()=> updateVitals()}>Submit</Button>  </div>
                    
                    
                     {isNext  && <Redirect to={{

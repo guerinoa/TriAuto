@@ -2,8 +2,10 @@ const express = require("express");
 const Router = express.Router();
 const pool = require("../connection");
 var status = 0
-var frontEndSignal = 1
+var frontEndSignal = 0
 var ohip = null
+var collectionReady = 0
+
 
 
 // Gets data collection signal from front end, front end makes post request to this endpoint
@@ -13,14 +15,24 @@ Router.post('/collection', (req, res) => {
 
 // Gets data collection signal from MCU
 Router.post('/beginCollection', (req, res) => {
-  // Sets frontEndSignal to 1
-  frontEndSignal = 1
+  // Tells front end to display collecting vital sign page but for not allow them to click submit
+  res.send(frontEndSignal)
 });
 
 // Allows user to submit vital sign info, front end makes get request to this endpoint
 Router.get('/collectionReady', (req, res) => {
-  res.send('1')
+  if (collectionReady == 1){
+    res.send('1');
+    collectionReady = 0
+  } else if (collectionReady == 2){
+    res.send('2');
+    collectionReady = 0
+  } else if (collectionReady == 3){
+    res.send('3');
+    collectionReady = 0
+  }
 });
+
 
 
 // Front end makes continuos get request to check if there is a start
@@ -36,34 +48,22 @@ Router.get('/beginCollectionFront', (req, res) => {
 });
 
 // Gets temperature and blood oxygen from the MCU 
-Router.post('/temperature', (req, res) => {
+Router.post('/vitals', (req, res) => {
   const temperature = req.body.temperature
-
-  connection.query(`UPDATE visitation_information AS v1, (SELECT visitid FROM visitation_information WHERE ohip = '${ohip}' ORDER BY visitid DESC LIMIT 1) AS v2
-         SET PatientTemperature = '${temperature}' WHERE v1.visitid = v2.visitid`,(err,result)=> {
-            if (err) {console.log(err);} 
-            else {
-                res.send('result')
-                console.log("vital signs updated")
-            }} );
-
-  // Update the visit information with the given values
-});
-
-// Gets temperature and blood oxygen from the MCU 
-Router.post('/oxygen', (req, res) => {
   const bloodOxygen = req.body.bloodOxygen
 
   connection.query(`UPDATE visitation_information AS v1, (SELECT visitid FROM visitation_information WHERE ohip = '${ohip}' ORDER BY visitid DESC LIMIT 1) AS v2
-         SET PatientBloodOxygen = '${bloodOxygen}' WHERE v1.visitid = v2.visitid`,(err,result)=> {
+         SET PatientTemperature = '${temperature}', PatientBloodOxygen = '${bloodOxygen}' WHERE v1.visitid = v2.visitid`,(err,result)=> {
             if (err) {console.log(err);} 
             else {
                 res.send('result')
                 console.log("vital signs updated")
             }} );
 
-  // Update the visit information with the given values
+  // Tell front end the submit value is now clickable
+  collectionReady = 1
 });
+
 
 Router.get("/vital/:ohip", (req, res) => {
     const OHIP =  req.params.ohip
@@ -129,45 +129,32 @@ Router.put("/riskLevelUpdate",(req,res)=>{
       })
 });
 
-// Status signals to send to the MCU
+// Embedded to backend
 Router.post('/status', (req, res) => {
-  const confirmation = req.body.confirmation
-  if (confirmation) {
-    status = status + 1
-  }
- 
-  // Sending the response
-  // Do nothing
-  if (status == 0) {
-      res.send('0')
-  }
-  // Begin collection 
-  else if (status == 1) {
+
+  let esp_response = req.body.esp_response
+  esp_response = JSON.stringify(esp_response)
+
+  if (status == 1){
+    // Start data collection
+    if (esp_response == 0){
+      frontEndSignal = 1
       res.send('1')
-  }
-  else if (status == 2) {
+    } else if (esp_response == 1){
+      // Start frontend data collection screen but not allow user to click submit
+      collectionReady = 1
+    } else if (esp_response == 2){
+      // Help signal
+      collectionReady = 2
       res.send('2')
+      status = 0 
+    } else if (esp_response == 3){
+      // Send signal to the nurse interface there is an error
+      collectionReady = 3
+      status = 0 
+    }
   }
-  else if (status == 3) {
-      res.send('3')
-  }
-  else if (status == 4) {
-      res.send('4')
-  }
-  else if (status == 5) {
-      res.send('5')
-  }
-  else if (status == 6) {
-      res.send('6')
-  }
-  else if (status == 7) {
-      res.send('7')
-  }
-  else if (status == 8) {
-      res.send('8')
-      // Set status back to zero
-      status = 0
-  }
+
   
   // Ending the response
   res.end()

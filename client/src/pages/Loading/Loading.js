@@ -9,7 +9,7 @@ import './loading.css'
 
 const Loading = () => {
 
-    const [redirect, setRedirect] = useState(null);
+    const [redirect, setRedirect] = useState(0);
     const location = useLocation()
     const patientOhip = location.state.patientOhip
     const visit = location.state.visit
@@ -19,7 +19,7 @@ const Loading = () => {
         const intervalId = setInterval(() => {  //assign interval to a variable to clear it.
             axios.get('http://localhost:8080/vitalList/beginCollectionFront')
             .then(response => {
-                setRedirect(response);
+                setRedirect(response.data);
             });
         }, 5000)
         
@@ -30,7 +30,7 @@ const Loading = () => {
 
     return (
         <div id="wrapper2">
-            {redirect && (
+            {redirect == 1 && (
                 <Redirect to={{
                     pathname: "/begincollection",
                     state: {

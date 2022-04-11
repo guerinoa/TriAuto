@@ -17,6 +17,8 @@ import Login from "./pages/Nurse/Login";
 import Landing from "./pages/Nurse/Landing";
 import Details from "./pages/Nurse/Details";
 import Loading from "./pages/Loading/Loading";
+import Error from "./pages/patient/Error";
+import Help from "./pages/patient/Help";
 
 class App extends Component {
 
@@ -24,7 +26,7 @@ class App extends Component {
     return (
       <Router>
       <Navbar /> 
-     <Switch>
+      <Switch>
         <Route path='/' exact component={Home} />
        <Route path='/landingpage' exact component={LandingPage}/>
        <Route path='/role' component={Role} />
@@ -43,6 +45,9 @@ class App extends Component {
        <Route path='/details' component={Details}/>
 
        <Route path='/loading' component={Loading}/>
+
+       <Route path='/patient/error' component={Error}/>
+       <Route path='/patient/help' component={Help}/>
 
      </Switch>
    </Router> 
