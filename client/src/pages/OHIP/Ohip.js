@@ -30,12 +30,14 @@ function OhipSubmission() {
       );
 
     const getPatientProfile = () => {
-                console.log(patientProfile.OHIP)
+        console.log(patientProfile)
                 Axios.get(`http://localhost:8080/patientList/${patientProfile.OHIP}`).then((response)=> {
-                    setPatientProfile(response.data[0])
-                    console.log(response.data.length)
-                    {response.data.length > 0 ? setOhipFound(true) : addPatient() } 
+                    console.log(response.data)
                     console.log(response.data[0])
+                    console.log(response.data.length)
+                    {response.data.length > 0 && setPatientProfile(response.data[0])}
+                    {response.data.length > 0 ? setOhipFound(true) : addPatient() } 
+            
               });
         }
 
@@ -53,9 +55,11 @@ function OhipSubmission() {
             }).then(()=>
             {
               console.log("added!")
+              console.log(patientProfile)
+    
             } 
             );
-        setOhipFound(true)
+            setOhipFound(true)
     }
 
     return (
@@ -63,7 +67,7 @@ function OhipSubmission() {
             <div className = "ohipbox" style = {{display: 'flex', flexDirection:'column', width: '50%', height: '50%'}} > 
                     <div className = "ohipform" style = {{display: 'flex', flex:1, justifyContent:'center', alignItems:'flex-end'}}> 
                     <Grid id="field1"  item xs={8} spacing={2}>
-                    <FormControl>
+                    <FormControl sx={{width:"100%"}} >
                         <InputLabel htmlFor="firstName">OHIP</InputLabel>
                         <Input id="firstName" aria-describedby="my-helper-text" onChange={handleChange('OHIP')} />
                         <FormHelperText id="my-helper-text">Please enter your 12 digit OHIP number and Version</FormHelperText>
@@ -73,11 +77,10 @@ function OhipSubmission() {
                         {ohipFound  &&  <Redirect to={{
                                 pathname: "/currentpatient",
                                 state: {                                  
-                                        patientProfile: patientProfile,
-                       
+                                    patientProfile: patientProfile,
                                 }
                                 }}/>}
-                    <div className = "buttonSubmit" style = {{display: 'flex', justifyContent:'center',alignItems:'flex-start', flex:1}}>  <Button onClick={() => handleSubmit(true)}>Submit</Button>  </div>
+                    <div className = "buttonSubmit" style = {{display: 'flex', justifyContent:'center',alignItems:'flex-start', flex:1}}>  <Button onClick={() => handleSubmit(true)}>Submit</Button> </div>
                     
 
         </div> 

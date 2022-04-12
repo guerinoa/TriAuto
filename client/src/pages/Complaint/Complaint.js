@@ -3,7 +3,6 @@ import Button from '@mui/material/Button';
 import { IconButton} from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useState, useEffect } from "react";
-import { io } from "socket.io-client";
 import { Link,useLocation } from 'react-router-dom';
 import HandleComplaints from '../../components/handleComplaints';
 import AwesomeSlider from 'react-awesome-slider';
@@ -15,22 +14,36 @@ import ImageMap from './imageMap'
 import AddComplaint from './AddComplaint';
 import {Redirect} from 'react-router';
 import Axios from 'axios';
-
+import './complaint.css';
+import { DataGridPro } from '@mui/x-data-grid-pro';
 function Complaint() {
     const location = useLocation()
     const cP = location.state.pO
-    const complaintList = location.state.complaintList
+    const complaintList1 = location.state.complaintList
     const [isPressed,setIsPressed] = useState(false)
     const [isBeingCollected,setIsBeingCollected] = useState(false)
     const [selectedIDs, setSelectedIds] = useState(new Set())
     const [changeMade, setChangeMade] = useState(false)
     const [dummyList, setDummyList] = useState([])
-       
+    const [loading, setLoading] = useState(false)
+         
+    useEffect(() => {
+        getPatientComplaint();
+      }, [])
+
     function press() {
         setIsPressed(true)
     }
 
     function beginCollection() {
+
+        // Get visit id of most recent vist
+        Axios.post('http://localhost:8080/vitalList/collection', {ohip: cP}).then(function (response) {
+            console.log(response);
+        })
+
+        setLoading(true)
+
         Axios.post('http://localhost:8080/vitalList/createVital',{
             patientOhip: cP
             }).then(()=>
@@ -46,20 +59,21 @@ function Complaint() {
         Axios.delete(`http://localhost:8080/complaintList/delete/${id}`)
       }
       
-    const getPatientComplaint = (ohip) => {
-        Axios.get(`http://localhost:8080/complaintList/${ohip}`).then((response)=> {
+    const getPatientComplaint = () => {
+        Axios.get(`http://localhost:8080/complaintList/${cP}`).then((response)=> {
+            console.log(response.data)
             setDummyList(response.data); 
-            setChangeMade(true)
+            
         });
     }
 
     function deleteComplaint() {
-       selectedIDs.map(idToDelete => complaintList.map(complaints => complaints.ComplaintID === idToDelete && deleteItem(complaints.OHIP,idToDelete)))
-       /*selectedIDs.map(idToDelete => complaintList.filter(complaints => complaints.ComplaintID != idToDelete))*/
-       getPatientComplaint()
+       selectedIDs.map(idToDelete => dummyList.map(complaints => complaints.ComplaintID === idToDelete && deleteItem(complaints.OHIP,idToDelete)))
+       selectedIDs.map(idToDelete => setDummyList(dummyList.filter(complaint => idToDelete != complaint.ComplaintID)))
+       setChangeMade(true)
 
     }
-
+    console.log(dummyList)
     const columns = [
         { field: 'ComplaintID', headerName: 'ComplaintID',},
         { field: 'OHIP', headerName: 'OHIP',  width: 120},
@@ -109,12 +123,14 @@ function Complaint() {
     ]  
     return (
        <> 
-       <div id = 'complaintTable' style={{ height: 830, width: '100%' }}>
+       <div id = 'complaintTable' style={{ width: '100%' }}>
 
         <DataGrid
+  
             getRowId={row => row.ComplaintID}
-            rows= {complaintList}
+            rows= {dummyList}
             columns={columns}
+            autoHeight
             pageSize={20}
             rowsPerPageOptions={[5]}
             checkboxSelection
@@ -122,15 +138,18 @@ function Complaint() {
             onSelectionModelChange={(ids) => {
                 setSelectedIds(ids);        
             }}
-        />
+                />
         </div>
+        <div id="wrapper">
         <Button style={{marginRight: 20}} variant = "contained" color = "primary" onClick = {()=>deleteComplaint()}> Delete</Button>
 
 
-        {complaintList.length < 3 ? <Button style={{marginRight: 20}} variant = "contained" color = "secondary" onClick = {()=>press()}> Add Complaint </Button> : <Button style={{marginRight: 20}} variant = "contained" disabled> Add Complaint </Button> } 
+        {dummyList.length < 3 ? <Button style={{marginRight: 20}} variant = "contained" color = "secondary" onClick = {()=>press()}> Add Complaint </Button> : <Button style={{marginRight: 20}} variant = "contained" disabled> Add Complaint </Button> } 
+
+        <br></br>
         
-        {complaintList.length > 0 ? <Button variant = "contained" color = "success" onClick = {()=>beginCollection()}> Begin Collection </Button> : <Button variant = "contained" disabled> Begin Collection </Button>  }
-                
+            {dummyList.length > 0 ? <Button variant = "contained" color = "success" onClick = {()=>beginCollection()}> Begin Collection </Button> : <Button variant = "contained" disabled> Begin Collection </Button>  }
+        </div>   
        
             {isPressed && 
             <div id = "mapImage"  style = {{display:'flex', height: '90vh',flexDirection:'row', justifyContent:'center',backgroundColor :'White'}}>
@@ -139,21 +158,32 @@ function Complaint() {
                     pathname: "/imagemap",
                     state: {
                             patientOhip:cP,     
-                            complaintList: complaintList,     
+                            complaintList: dummyList,     
                             fillcolor: '#00ff194c'    
                     }
                     }}/>
             </div> 
             </div> }
 
-            {isBeingCollected  && <Redirect to={{
+         {isBeingCollected  && <Redirect to={{
                     pathname: "/begincollection",
                     state: {
                         patientOhip:cP,      
                     }
                     }}/>
 
-            }
+            } 
+
+          {/*   {loading && (
+                <Redirect to={{
+                    pathname: "/loading",
+                    state: {
+                        patientOhip:cP, 
+                        visit: complaintList.slice(-1)[0].VisitID   
+                    }
+                    } }/>  
+                    
+            )} */} 
 
         </> 
         

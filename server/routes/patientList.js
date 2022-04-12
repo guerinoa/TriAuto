@@ -8,8 +8,7 @@ Router.get("/:ohip",(req,res)=>{
     console.log(OHIP)
 
     pool.getConnection(function(err, connection){
-        if (err) throw err;
-    
+        if (err) throw err; 
         connection.query(`select * from patient_profile WHERE OHIP ='${OHIP}'`, (err, rows, fields)=>{
             if (!err){ res.send(rows); console.log(rows)}
             else { console.log(err); }
@@ -71,7 +70,6 @@ Router.put("/update",(req,res)=>{
     const PatientAllergies= req.body.patientProfile.PatientAllergies
     const PatientMedication= req.body.patientProfile.PatientMedication
     const PatientExistingConditions= req.body.patientProfile.PatientExistingConditions
-
     pool.getConnection(function(err, connection){
         if (err) throw err;
     

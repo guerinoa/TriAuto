@@ -1,3 +1,4 @@
+
 export const MAP  = [
     {
       id: "469f9800-c45a-483f-b13e-bd24f3fb79f4",
@@ -64,6 +65,7 @@ export const MAP  = [
       shape: "poly",
       name: "2",
       strokeColor: "black",
+      preFillColor:'lightred',
       coords: [
         198,
         92,

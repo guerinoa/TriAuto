@@ -56,7 +56,7 @@ export default function ImageMap(props) {
             onMouseLeave={handleMouseLeaveArea}
             onClick={handleAreaClick}
           />
-            <Button  variant = "contained">Non Body Part </Button> 
+        
             </div>
       </>
        }

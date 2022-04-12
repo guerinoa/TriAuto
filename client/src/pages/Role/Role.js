@@ -23,7 +23,7 @@ function Role() {
             {language === "english" && 
             <div className = 'cards'>
                     <div className = "patient">  <CardItem src = {patientImg} text = "Patient"  path='/ohip'/> </div>
-                    <div className = "nurse"> <CardItem src ={nurseImg} text = "Nurse"  path='/nurse'/>  </div> 
+                    <div className = "nurse"> <CardItem src ={nurseImg} text = "Nurse"  path='/nurselogin'/>  </div> 
                     
             </div>
             }

@@ -6,6 +6,15 @@
     transform:translate(50%,50%);
 }
 
-.img-mapper-img{
-    position:relative;
+#img-mapper{
+    width:400px !important;
+    height:573px !important;
+}
+.img-mapper-canvas{
+    width:400px !important;
+    height:573px !important;
+}
+
+area:hover {
+    background-color: antiquewhite;
 }
