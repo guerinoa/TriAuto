@@ -1,7 +1,7 @@
 const express = require("express");
 const Router = express.Router();
 const pool = require("../connection");
-var status = 0
+var status = 1
 var frontEndSignal = 0
 var ohip = null
 var collectionReady = 0
@@ -131,15 +131,16 @@ Router.post('/status', (req, res) => {
 
   else if(es_response == 1) //confirmation
   {
+    frontEndSignal = 1
     //sent begin collection
     if(status==1)
     {
+      collectionReady = 1
       /* Update Frontend: 
       Display "Running measurement routine"
       Display "When complete, enter blood pressure and heart rate values from screen."
       Display input fields for blood pressure & hr
       */
-      frontEndSignal = 1
     }
 
     //sent measure blood pressure
@@ -148,7 +149,7 @@ Router.post('/status', (req, res) => {
       Display "When complete, enter blood pressure values from screen."
       Display input fields for blood pressure
       */
-      collectionReady = 1
+     collectionReady = 1
     }
 
     //sent measure heart rate
@@ -157,6 +158,7 @@ Router.post('/status', (req, res) => {
       Display "When complete, enter heart rate values from screen."
       Display input fields for hr
       */
+     collectionReady = 1
     }
 
     //sent measure blood oxygen
@@ -190,6 +192,7 @@ Router.post('/status', (req, res) => {
       /* Update Frontend:
       Patient triaged!
       */
+     collectionReady = 1
     }
 
     status = 0 //action confirmed, reset status variable
