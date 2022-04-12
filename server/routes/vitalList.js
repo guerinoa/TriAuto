@@ -49,8 +49,8 @@ Router.get('/beginCollectionFront', (req, res) => {
 
 // Gets temperature and blood oxygen from the MCU 
 Router.post('/vitals', (req, res) => {
-  const temperature = req.body.temperature
-  const bloodOxygen = req.body.bloodOxygen
+  const temperature = 90
+  const bloodOxygen = 40
 
   connection.query(`UPDATE visitation_information AS v1, (SELECT visitid FROM visitation_information WHERE ohip = '${ohip}' ORDER BY visitid DESC LIMIT 1) AS v2
          SET PatientTemperature = '${temperature}', PatientBloodOxygen = '${bloodOxygen}' WHERE v1.visitid = v2.visitid`,(err,result)=> {
@@ -103,7 +103,7 @@ Router.get("/vital/:ohip", (req, res) => {
         if (err) throw err;
     
         connection.query(`UPDATE visitation_information AS v1, (SELECT visitid FROM visitation_information WHERE ohip = '${OHIP}' ORDER BY visitid DESC LIMIT 1) AS v2
-         SET PatientBloodPressure = '${PatientBloodPressure}', PatientHeartRate = '${PatientHeartRate}' WHERE v1.visitid = v2.visitid`,(err,result)=> {
+         SET PatientBloodPressure = '${PatientBloodPressure}', PatientHeartRate = '${PatientHeartRate}', PatientTemperature = 40, PatientBloodOxygen = 90 WHERE v1.visitid = v2.visitid`,(err,result)=> {
             if (err) {console.log(err);} 
             else {
                 res.send(result)
@@ -119,8 +119,7 @@ Router.put("/riskLevelUpdate",(req,res)=>{
     pool.getConnection(function(err, connection){
         if (err) throw err;
     
-        connection.query(`UPDATE visitation_information AS v1, (SELECT visitid FROM visitation_information WHERE ohip = '${OHIP}' ORDER BY visitid DESC LIMIT 1) AS v2
-         SET PatientRiskLevel= '${PatientRiskLevel}' WHERE v1.visitid = v2.visitid)`,(err,result)=> {
+        connection.query(`UPDATE visitation_information AS v1, (SELECT visitid FROM visitation_information WHERE ohip = '${OHIP}' ORDER BY visitid DESC LIMIT 1) AS v2 SET PatientRiskLevel= '${PatientRiskLevel}' WHERE v1.visitid = v2.visitid`,(err,result)=> {
             if (err) {console.log(err);} 
             else {
                 res.send(result)

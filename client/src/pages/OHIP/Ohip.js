@@ -30,7 +30,6 @@ function OhipSubmission() {
       );
 
     const getPatientProfile = () => {
-                console.log(patientProfile.OHIP)
                 Axios.get(`http://localhost:8080/patientList/${patientProfile.OHIP}`).then((response)=> {
                     setPatientProfile(response.data[0])
                     console.log(response.data.length)
@@ -53,9 +52,11 @@ function OhipSubmission() {
             }).then(()=>
             {
               console.log("added!")
+              console.log(patientProfile)
             } 
             );
-        setOhipFound(true)
+         
+            setOhipFound(true)
     }
 
     return (
@@ -73,11 +74,11 @@ function OhipSubmission() {
                         {ohipFound  &&  <Redirect to={{
                                 pathname: "/currentpatient",
                                 state: {                                  
-                                        patientProfile: patientProfile,
+                                    patientProfile: patientProfile,
                        
                                 }
                                 }}/>}
-                    <div className = "buttonSubmit" style = {{display: 'flex', justifyContent:'center',alignItems:'flex-start', flex:1}}>  <Button onClick={() => handleSubmit(true)}>Submit</Button>  </div>
+                    <div className = "buttonSubmit" style = {{display: 'flex', justifyContent:'center',alignItems:'flex-start', flex:1}}>  <Button onClick={() => handleSubmit(true)}>Submit</Button> </div>
                     
 
         </div> 

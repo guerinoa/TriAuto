@@ -14,8 +14,8 @@ function Wait() {
     const age = location.state.age
     const patientOhip = location.state.patientOhip
     const ctascedisList = location.state.ctascedisList
-    const bloodoxygen = location.state.bloodoxygen
-    const temp = location.state.temp
+   //const bloodoxygen = location.state.bloodoxygen
+    //const temp = location.state.temp
     const heartrate = location.state.heartrate
     const sysbloodpressure = location.state.sysbloodpressure
     const diabloodpressure = location.state.diabloodpressure 
@@ -33,7 +33,7 @@ function Wait() {
     const initials = []
 
    
-    const riskLevels= ctascedisList.map(item => [...initials, myRiskLevel(bloodoxygen,temp,heartrate,item.PatientComplaint,age,sysbloodpressure,diabloodpressure,item.PatientCtasLevel)]) 
+    const riskLevels= ctascedisList.map(item => [...initials, myRiskLevel(90,40,heartrate,item.PatientComplaint,age,sysbloodpressure,diabloodpressure,item.PatientCtasLevel)]) 
     const minRisk = Math.min(...riskLevels)
     const updateVitals =()=> {
         Axios.put('http://localhost:8080/vitalList/riskLevelUpdate',{

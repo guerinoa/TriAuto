@@ -163,8 +163,7 @@ function BeginCollection() {
                     
                     </div>  
                 
-                    <div className = "buttonSubmit" style = {{display: 'flex', backgroundColor: 'rgb(231, 230, 230)',justifyContent:'center',alignItems:'flex-start'}}>  <Button variant='outlined' disabled={collection != 1} onClick = {()=> updateVitals()}>Submit</Button>  </div>
-                   
+                    <div className = "buttonSubmit" style = {{display: 'flex', backgroundColor: 'rgb(231, 230, 230)',justifyContent:'center',alignItems:'flex-start'}}>  <Button disabled = {isSubmit ? true : false} onClick = {()=> updateVitals()}>Submit</Button>  <Button  disabled = {isSubmit ? false : true} onClick = {()=> setSubmit(false)}>Update</Button> <Button  disabled = {isSubmit ? false : true} onClick = {()=> setNext(true)}>Next</Button></div>                   
                    
                     {isNext  && <Redirect to={{
                     pathname: "/wait",

@@ -11,13 +11,13 @@ import { Link,useLocation } from 'react-router-dom';
 import {Redirect} from 'react-router';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
+import "./currentpatient.css";
 
 
-
-function CurrentPatient() {
+function CurrentPatient(props) {
     const location = useLocation()
     const moment= require('moment')
-    const patientProfile = location.state.patientProfile
+    const patientProfile = props.patientProfile
     const [patient, setUpdatePatient] = useState(patientProfile);
     const [isSubmit, setSubmit] = useState(false)
     const [isNext, setNext] = useState(false)
@@ -25,13 +25,11 @@ function CurrentPatient() {
 
         
     useEffect(() => {
-        // Should create a new visit entry in database
-        
+        console.log(patientProfile)
         getPatientComplaint();
       }, [])
        
     const handleChange = (prop) => (event) => {
-
         setUpdatePatient({ ...patient, [prop]: event.target.value });
       };
 
@@ -56,14 +54,14 @@ function CurrentPatient() {
             <div className = "collectionform" style = {{display: 'flex',  flexDirection:'column',height:'100%'}}> 
                 <Box sx={{ display: 'flex', width:'100%', height:'100%', justifyContent:'flex-start', alignItems:'center',flexDirection:'column', flexWrap: 'wrap' }}> 
                     <h3 style={{marginTop:'20px', marginBottom:'20px'}}>Welcome to TriAuto </h3> 
-                    <FormControl sx={{ m: 1, width: '70ch' }} variant="outlined">
+                    <FormControl sx={{ m: 1}} variant="outlined">
                             <InputLabel htmlFor="ohip">OHIP</InputLabel>
                             <OutlinedInput
                              id="OHIP" 
                              disabled 
                              value={patientProfile.OHIP}
                              aria-describedby="my-helper-text" 
-                             onChange={handleChange('OHIP')} 
+                           
                              label="OHIP"
                              />
                     </FormControl>

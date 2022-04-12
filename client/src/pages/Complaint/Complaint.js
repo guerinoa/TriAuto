@@ -159,24 +159,25 @@ function Complaint() {
             </div> 
             </div> }
 
-            {/* {isBeingCollected  && <Redirect to={{
+         {isBeingCollected  && <Redirect to={{
                     pathname: "/begincollection",
                     state: {
                         patientOhip:cP,      
                     }
                     }}/>
 
-            } */}
+            } 
 
-            {loading && (
+          {/*   {loading && (
                 <Redirect to={{
                     pathname: "/loading",
                     state: {
                         patientOhip:cP, 
                         visit: complaintList.slice(-1)[0].VisitID   
                     }
-                    }}/>
-            )}
+                    } }/>  
+                    
+            )} */} 
 
         </> 
         
